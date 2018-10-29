@@ -7,8 +7,8 @@ from flask import *
 app = Flask(__name__)
 
 
-def index():
-	return "courage les gens !"
+def index():marc
+	return "courage les gens, merci  !"
 
 
 if __name__ == '__main__':
