@@ -6,8 +6,8 @@ from flask import *
 
 app = Flask(__name__)
 
-
-def index():marc
+@app.route("/")
+def index():
 	return "courage les gens, merci  !"
 
 
