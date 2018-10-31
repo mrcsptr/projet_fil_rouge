@@ -1,3 +1,7 @@
+#classe article
+
+# coding: utf-8
+
 class article:
 
 	def __init__(self, nom, auteur, date, contenu):
@@ -30,3 +34,6 @@ class article:
 		
 	def getDate(self)
 		return self.contenu	
+		
+		
+		
