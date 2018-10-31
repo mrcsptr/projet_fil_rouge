@@ -6,10 +6,10 @@ from flask import *
 
 app = Flask(__name__)
 
-@app.route("/")
+
+@app.route('/')
 def index():
-	return "bienvenue sur le wiki !"
-	
+    return render_template('index.html')
 	
 @app.route('/<chaine>/')
 def connexion_article(chaine):
