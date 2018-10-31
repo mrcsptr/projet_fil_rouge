@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box;}
+
+<body margin: 15;  font-family: Verdana, Helvetica, sans-serif;
+
+.topnav <overflow: hidden; background-color: #e9e9e9>
+
+.topnav a <float: left; display: block; color: blue; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px>
+
+.topnav a:hover <background-color: #ccc; color: blue>
+
+.topnav a.active <background-color: #2196F3; color: white>
+
+.topnav .search-container <float: right>
+
+.topnav input[type=text] <padding: 6px; margin-top: 8px; font-size: 17px; border: none>
+
+.topnav .search-container button <float: right; padding: 6px; margin-top: 8px; margin-right: 16px; background: #ddd; font-size: 17px; border: none;cursor: pointer>
+
+.topnav .search-container button:hover <background: #ddd>
+
+@media screen and (max-width: 600px) <
+  .topnav .search-container <float: none>
+
+  .topnav a, .topnav input[type=text], .topnav .search-container button <float: none; display: block; text-align: center; width: 100%; margin: 0; padding: 14px>
+  .topnav input[type=text] <border: 1px solid #ccc>
+  >
+
+</style>
+</head>
+<body>
+<style>
+body {
+   background-image: url("https://sitel.com.mk/sites/default/files/styles/large/public/article/teaser-images/2017/may/background-book-119954.jpg?itok=wCZlMhiG");
+   background-repeat:no-repeat;
+   background-size:cover;
+}
+</style>
+<CENTER><TABLE border=1; style="background-color:#ECF0F1;">
+<TR>
+<TD>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="#à propos">à propos</a>
+  <a href="#contact">Contact</a>
+
+    <div style="padding-left:20px; color:green">
+        <h1>BIENVENUE SUR LE WIKI DE ZFMP !</h1>
+    </div>
+
+  <div class="search-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Mot-clef..." name="search">
+      <button type="Submit">Lancer la recherche</button>
+    </form>
+  </div>
+</div>
+<p>Veuillez entrer au moins un mot-clef.</p>
+
+
+<div style="padding-left:12px">
+    <h2>Les résultats ne vous satisfont pas ?</h2>
+    <h2>Inscrivez-vous et partagez vos connaissances !</h2>
+
+</div>
+<a href="#S'inscrire">S'inscrire</a>
+<div style="padding-left:12px">
+    <h3>Déjà membre ?</h3>
+</div>
+
+<form method="post" action="Se connecter">
+   <p>
+       <label for="pseudo">Votre pseudo :</label>
+       <input type="text" name="pseudo" id="pseudo" />
+
+       <br />
+       <label for="pass">Votre mot de passe :</label>
+       <input type="password" name="pass" id="pass" />
+
+   </p>
+</form>
+
+<a href="#Se connecter">Se connecter</a>
+
+</TD>
+</TR>
+</TABLE></CENTER>
+
+</body>
+</html>
