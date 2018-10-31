@@ -4,12 +4,58 @@
     <meta charset="UTF-8">
     <title>Page Request</title>
 </head>
-<body>
+<style>
+body{
+  /* Uniquement centrer le formulaire sur la page */
+  margin: 0 auto;
+  width: 400px;
+  /* Encadré pour voir les limites du formulaire */
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}
+</style>
 
-<form name="mon-formulaire1" action="page-envoi.html" method="get">
+<div class="search-container">
+    <form action="/action_page.php">
+
+        <input type="text" placeholder="Mot-clef..." name="search">
+      <button type="Submit">Lancer la recherche</button>
+        <p>Veuillez entrer au moins un mot-clef.</p>
+    </form>
+  </div>
+
+</div>
 
 
+<h3 style="text-align:center;"> Ajouter un article </h3>
 
+<form name="mon-formulaireArticle" action="page-envoi.html" method="post">
+
+ <p>
+        <label for="Auteur"><span> Auteur :</span></label><br>
+        <input type="text" id="Auteur" name="Auteur_name" autofocus required/>
+    </p>
+
+    <p>
+        <label for="Titre"><span> Titre : </span></label><br>
+        <input type="text" id="Titre" name="titre_article" required>
+    </p>
+
+    <p>
+        <label for="Mots_cles"><span> Mots clés :</span></label><br>
+        <input type="text" id="Mots_cles" name="Mots_cles_article">
+    </p>
+
+
+    <p>
+        <label for="Contenu"><span>Contenu : </span></label><br>
+        <textarea id="Contenu" name="contenu_article" rows="40" cols="50" required></textarea>
+    </p>
+
+<p class="button">
+        <button type="submit">Soummettre article</button>
+    </p>
 
 </form>
 
