@@ -7,8 +7,9 @@ from flask import *
 app = Flask(__name__)
 
 
-def index():marc
-	return "courage les gens, merci  !"
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
