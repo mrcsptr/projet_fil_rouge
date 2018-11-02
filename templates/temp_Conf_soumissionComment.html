@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Page Request</title>
+    <title>Confirmation soumission commentaire</title>
 
-    <style>
+
+  <style>
 
     form {
         /* Centrer et définir la taille du formulaire sur la page */
@@ -111,7 +112,7 @@ body {
 <a href="#">Accueil</a>
   <a href="#">Espace Personnel</a>
     <a>
-        <form name="Recherche" action="article.html" method="post">
+        <form name="Recherche" action="http://127.0.0.1:5000/" method="post">
         <input type="text" name="search" placeholder="Search ..." width="330px" required>
         <button type="Submit">Lancer la recherche</button>
         </form>
@@ -124,35 +125,11 @@ body {
 
 <div class="content">
 
-<h3 style="text-align:center"> Ajouter un article </h3>
+<h3 style="text-align:center"> FELICITATION ! </h3>
 
-<form name="mon-formulaireArticle" action="infos" method="post">
+    <h5 style="text-align:center"> Votre commentaire a bien été soumis pour publication. </h5>
 
-    <p>
-        <label  for="Auteur"><span> Auteur :</span></label>
-        <input type="text" id="Auteur" name="Auteur_name" placeholder="Votre nom ..." autofocus required/>
-    </p>
 
-    <p>
-        <label for="Titre"><span> Titre : </span></label>
-        <input type="text" id="Titre" name="titre_article" placeholder="Le titre de votre article ..." required>
-    </p>
-
-    <p>
-        <label for="Mots_cles"><span> Mots clés :</span></label>
-        <input type="text" id="Mots_cles" name="Mots_cles_article" placeholder=" Les mots clés de votre article ...">
-    </p>
-
-    <p>
-        <label for="Contenu"><span>Contenu : </span></label>
-        <textarea id="Contenu" name="contenu_article" rows="60" cols="50" placeholder="Le contenu de votre article ..." required></textarea>
-    </p>
-
-    <p class="button">
-        <button class="button"  type="submit">Soummettre article</button>
-    </p>
-
-</form>
 
 </div>
 

@@ -1,0 +1,101 @@
+
+--------------------------------------------------------------------------------------
+--------------------------- DETAILS CODE COMMENTAIRES WIKI ---------------------------
+--------------------------------------------------------------------------------------
+
+A- Interface (page HTML/CSS)
+Pour Utilisateur
+1- créer un petit formulaire "commentaire" en bas de chaque article avec:
+	- un champ/textarea où est marqué: "Veuillez saisir votre commentaire..."
+	- un bouton submit où est marqué: "soumettre commentaire" 
+
+2- le bouton submit enverrait vers la page de confirmation de soumission du commentaire
+	temp_Conf_soumissionComment.html (déjà créé)
+
+Pour ADMIN
+1- Liste (datalist) avec les demandes de validation de commentaires
+2- bouton ou cas à cocher / input ok ou ko
+
+
+    for elt in mots_interdit:
+        for mot in contenu_comment:
+            if re.match(elt, mot) is not None:
+                x = 0
+            else:
+                x = 1
+            result += x
+    if result == 0:
+        return "KO"
+    else:
+        return "OK"
+
+    for elt in mots_interdit:
+        if elt in contenu_comment.split():
+            x = 0
+        else:
+            x = 1
+        result += x
+    if result == 0:
+        return "KO"
+    else:
+        return "OK"
+
+B- Code PYTHON
+1- récupérer les informations: 
+	- nom de l'auteur  
+	- titre de l'article à commenter
+	- adresse url de l'article à commenter
+	- contenu du commentaire saisi
+
+2- faire un controle gros mots : 1er filtre
+	- si ok : passer au controle admin
+	- si ko : envoyer message: "commentaire rejeté"
+
+3- faire un controle admin : 2nd filtre
+	Pour ADMIN:
+	==> bouton ou cas à cocher / input ok ou ko
+	- si ok : commentaire validé
+		- publier le commentaire en bas de l'article visé
+		- mettre à jour la base de données
+		- envoyer message d'acceptation: "commentaire validé"
+		- horodater la validation du commentaire
+		- mettre à jour les stats
+	- si ko : envoyer message: "commentaire non validé"
+
+DONC SI VALIDATION = OK: 
+- publier le commentaire en bas de l'article visé
+	- récupérer l'adresse url de l'article (page html)
+	- récupérer nom/pseudo de l'auteur du commentaire
+	- afficher un label contenant le contenu du commentaire en bas de l'article
+	  grâce à l'adresse url de l'article (page html)
+	- créer un nouveau petit formulaire "commentaire"
+
+- mettre à jour la base de données MongoDB
+	- récupérer l'ID de l'auteur à partir de son nom
+	- pour l'ID correspondant, importer dans la base de données, le contenu du 
+	  commentaire saisi
+	- ajouter (+1) à la variable nombre de commentaires validés
+
+- envoyer/ message dans l'espace personnel
+	- récupérer du nom de l'auteur
+	- récupérer l'url de l'espace personnel
+	- afficher le message dans l'espace personnel: "Votre commentaire effectué
+	  sur l'article {0} a été publié/mis en ligne | rejeté ".format()
+
+- horodater la validation du commentaire
+	- utiliser le module datetime et date dans python
+	- récupérer la date et l'heure de validation dans une variable à afficher
+
+- mettre à jour les stats
+	- récupérer les stats indivuduelles (nombre de commentaires validés pour un 
+	  utilisateur précis (ID)
+	- récupérer stats globales: somme (nombre de commentaires validés par 
+	  utilisateur)
+	- récupérer l'url de l'espace personnel correspondant à l'ID
+	- afficher dans l'espace personnel au niveau du label destinés aux stats: 
+	  stats = stats indiv / stats globales
+
+- archiver infos dans un fichier/lien archives | historique dans espace personnel
+	- créer une liste (datalist) qui se remplit à chaque ajout (via append?)
+	- ajouter nouveau message à l'historique via une liste (message)
+

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Request</title>
+
+    <style>
+    form {
+        /* Centrer et définir la taille du formulaire sur la page */
+        margin: 0 auto;
+        width: 950px;
+        /* Encadrer pour voir les limites du formulaire */
+        padding: 1em;
+        border: 1px solid #CCC;
+        border-radius: 1em;
+      }
+        input, textarea {
+        /* To make sure that all text fields have the same font settings By default, textareas have a monospace font */
+        font: 1em sans-serif;
+        /* Fixer la longueur des champs */
+        width: 730px;
+        box-sizing: border-box; /* To harmonize the look & feel of text field border */
+        border: 1px solid #999;
+      }
+
+    form div + div {
+        margin-top: 1em;
+      }
+      label {
+        /* Fixer l'alignement et la taille des intitulés */
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+      }
+
+      input:focus, textarea:focus {
+        /* To give a little highlight on active elements */
+        border-color: #000;
+      }
+      textarea {
+        /* Alignement avec les champs précédents */
+        vertical-align: top;
+        /* Fixer le nombre de ligne */
+        height: 30em;
+      }
+      button {
+        /* Fixer la longueur et la hauteur du bouton */
+        width: 180px;
+        font-size: 17px;
+        background-color: #e7e7e7; color: black; /* Gray */
+        color: black;
+        border: 2px solid #4CAF50; /* Green */
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      }
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Style the content */
+.content {
+    background-color: #ddd;
+    padding: 10px;
+
+}
+
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="topnav">
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+    <a href="#">
+        <div class="search-container">
+    <form action="/action_page.php">
+
+        <input type="text" placeholder="Mot-clef..." name="search">
+      <button type="Submit">Lancer la recherche</button>
+        <p>Veuillez entrer au moins un mot-clef.</p>
+    </form>
+  </div>
+</a>
+</div>
+
+
+
+
+
+
+<div class="content">
+
+<h3 style="text-align:center;"> Ajouter un article </h3>
+
+<form name="mon-formulaireArticle" action="page-envoi.html" method="post">
+
+
+ <p>
+        <label  for="Auteur"><span> Auteur :</span></label>
+        <input type="text" id="Auteur" name="Auteur_name" autofocus required/>
+    </p>
+
+    <p>
+        <label for="Titre"><span> Titre?: </span></label>
+        <input type="text" id="Titre" name="titre_article" required>
+    </p>
+
+    <p>
+        <label for="Mots_cles"><span> Mots clés?:</span></label>
+        <input type="text" id="Mots_cles" name="Mots_cles_article">
+    </p>
+
+
+    <p>
+        <label for="Contenu"><span>Contenu : </span></label>
+        <textarea id="Contenu" name="contenu_article" rows="80" cols="50" required></textarea>
+    </p>
+
+<p class="button">
+        <button class="button" type="submit">Soummettre article</button>
+    </p>
+
+</form>
+
+</div>
+
+<div class="footer">
+  <p>Footer</p>
+</div>
+
+</body>
+</html>
+
+
+
+----------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Request</title>
+
+    <style>
+    form {
+        /* Centrer et définir la taille du formulaire sur la page */
+        margin: 0 auto;
+        width: 950px;
+        /* Encadrer pour voir les limites du formulaire */
+        padding: 1em;
+        border: 1px solid #CCC;
+        border-radius: 1em;
+      }
+        input, textarea {
+        /* To make sure that all text fields have the same font settings By default, textareas have a monospace font */
+        font: 1em sans-serif;
+        /* Fixer la longueur des champs */
+        width: 730px;
+        box-sizing: border-box; /* To harmonize the look & feel of text field border */
+        border: 1px solid #999;
+      }
+
+    form div + div {
+        margin-top: 1em;
+      }
+      label {
+        /* Fixer l'alignement et la taille des intitulés */
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+      }
+
+      input:focus, textarea:focus {
+        /* To give a little highlight on active elements */
+        border-color: #000;
+      }
+      textarea {
+        /* Alignement avec les champs précédents */
+        vertical-align: top;
+        /* Fixer le nombre de ligne */
+        height: 30em;
+      }
+      button {
+        /* Fixer la longueur et la hauteur du bouton */
+        width: 180px;
+        font-size: 17px;
+        background-color: #e7e7e7; color: black; /* Gray */
+        color: black;
+        border: 2px solid #4CAF50; /* Green */
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      }
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Style the content */
+.content {
+    background-color: #ddd;
+    padding: 10px;
+
+}
+
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="topnav">
+  <a href="#">Accueil</a>
+  <a href="#">Espace Personnel</a>
+  <a href="#">Archives</a>
+    <a href="#">
+        <style>
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}
+</style>
+  <input type="text" name="search" placeholder="Search..">
+</a>
+</div>
+
+
+
+
+
+
+<div class="content">
+
+<h3 style="text-align:center;"> Ajouter un article </h3>
+
+<form name="mon-formulaireArticle" action="page-envoi.html" method="post">
+
+<style>
+    form {
+        /* Centrer et définir la taille du formulaire sur la page */
+        margin: 0 auto;
+        width: 950px;
+        /* Encadrer pour voir les limites du formulaire */
+        padding: 1em;
+        border: 1px solid #CCC;
+        border-radius: 1em;
+      }
+        input, textarea {
+        /* To make sure that all text fields have the same font settings By default, textareas have a monospace font */
+        font: 1em sans-serif;
+        /* Fixer la longueur des champs */
+        width: 730px;
+        box-sizing: border-box; /* To harmonize the look & feel of text field border */
+        border: 1px solid #999;
+      }
+
+</style>
+
+ <p>
+        <label  for="Auteur"><span> Auteur :</span></label>
+        <input type="text" id="Auteur" name="Auteur_name" autofocus required/>
+    </p>
+
+    <p>
+        <label for="Titre"><span> Titre?: </span></label>
+        <input type="text" id="Titre" name="titre_article" required>
+    </p>
+
+    <p>
+        <label for="Mots_cles"><span> Mots clés?:</span></label>
+        <input type="text" id="Mots_cles" name="Mots_cles_article">
+    </p>
+
+
+    <p>
+        <label for="Contenu"><span>Contenu : </span></label>
+        <textarea id="Contenu" name="contenu_article" rows="80" cols="50" required></textarea>
+    </p>
+
+<p class="button">
+        <button class="button" type="submit">Soummettre article</button>
+    </p>
+
+</form>
+
+</div>
+
+<div class="footer">
+  <p>Footer</p>
+</div>
+
+</body>
+</html>
+
+
+-----------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Request</title>
+
+    <style>
+
+
+    form div + div {
+        margin-top: 1em;
+      }
+      label {
+        /* Fixer l'alignement et la taille des intitulés */
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+        padding: 12px 12px 12px 0;
+        display: inline-block;
+      }
+
+
+      button {
+        /* Fixer la longueur et la hauteur du bouton */
+        float: right;
+        width: 180px;
+        font-size: 17px;
+        background-color: #e7e7e7; color: black; /* Gray */
+        color: black;
+        border: 2px solid #4CAF50; /* Green */
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      }
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Style the content */
+.content {
+    background-color: #ddd;
+    padding: 10px;
+
+}
+
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="topnav">
+  <a href="#">Accueil</a>
+  <a href="#">Espace Personnel</a>
+  <a href="#">Archives</a>
+    <a href="#">
+        <form name="Recherche" action="page-envoi.html" method="post">
+        <input type="text" name="search" placeholder="Search ..." required>
+        <button type="Submit">Lancer la recherche</button>
+        </form>
+</a>
+</div>
+
+
+
+<div class="content">
+
+<h3 style="text-align:center;"> Ajouter un article </h3>
+
+<form name="mon-formulaireArticle" action="page-envoi.html" method="post">
+
+    <style>
+    form {
+        /* Centrer et définir la taille du formulaire sur la page */
+        margin: 0 auto;
+        width: 950px;
+        /* Encadrer pour voir les limites du formulaire */
+        padding: 1em;
+        border: 1px solid #CCC;
+        border-radius: 1em;
+      }
+        input, textarea {
+        /* To make sure that all text fields have the same font settings By default, textareas have a monospace font */
+        font: 1em sans-serif;
+        /* Fixer la longueur des champs */
+        width: 730px;
+        box-sizing: border-box; /* To harmonize the look & feel of text field border */
+        border: 1px solid #999;
+      }
+      input:focus, textarea:focus {
+        /* To give a little highlight on active elements */
+        border-color: #000;
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+      }
+
+      textarea {
+        /* Alignement avec les champs précédents */
+        vertical-align: top;
+        /* Fixer le nombre de ligne */
+        height: 30em;
+      }
+
+    </style>
+
+ <p>
+        <label  for="Auteur"><span> Auteur :</span></label>
+        <input type="text" id="Auteur" name="Auteur_name" placeholder="Votre nom ..." autofocus required/>
+    </p>
+
+    <p>
+        <label for="Titre"><span> Titre?: </span></label>
+        <input type="text" id="Titre" name="titre_article" placeholder="Le titre de votre article ..." required>
+    </p>
+
+    <p>
+        <label for="Mots_cles"><span> Mots clés?:</span></label>
+        <input type="text" id="Mots_cles" name="Mots_cles_article" placeholder=" Les mots clés de votre article ...">
+    </p>
+
+
+    <p>
+        <label for="Contenu"><span>Contenu : </span></label>
+        <textarea id="Contenu" name="contenu_article" rows="80" cols="50" placeholder="Le contenu de votre article ..." required></textarea>
+    </p>
+
+<p class="button">
+        <button class="button" type="submit">Soummettez votre article</button>
+    </p>
+
+</form>
+
+</div>
+
+<div class="footer">
+  <p>Footer</p>
+</div>
+
+</body>
+</html>
+
+
+---------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Request</title>
+
+    <style>
+
+    form {
+        /* Centrer et définir la taille du formulaire sur la page */
+        margin: 0 auto;
+        width: 950px;
+        /* Encadrer pour voir les limites du formulaire */
+        padding: 1em;
+        border: 1px solid #CCC;
+        border-radius: 1em;
+      }
+        input, textarea {
+        /* To make sure that all text fields have the same font settings By default, textareas have a monospace font */
+        font: 1em sans-serif;
+        /* Fixer la longueur des champs */
+        width: 730px;
+        box-sizing: border-box; /* To harmonize the look & feel of text field border */
+        border: 1px solid #999;
+      }
+      input:focus, textarea:focus {
+        /* To give a little highlight on active elements */
+        border: 3px solid #555;
+      }
+
+    form div + div {
+        margin-top: 1em;
+      }
+      label {
+        /* Fixer l'alignement et la taille des intitulés */
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+       }
+        textarea {
+        /* Alignement avec les champs précédents */
+        vertical-align: top;
+        /* Fixer le nombre de ligne */
+        height: 30em;
+      }
+
+      button {
+        /* Fixer la longueur et la hauteur du bouton */
+        width: 180px;
+        font-size: 17px;
+        background-color: #e7e7e7; color: black; /* Gray */
+        color: black;
+        border: 2px solid #4CAF50; /* Green */
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        margin-left: auto;
+    margin-right: auto;
+      }
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Style the content */
+.content {
+    background-color: #ddd;
+    padding: 10px;
+
+}
+
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="topnav">
+<a href="#">Accueil</a>
+  <a href="#">Espace Personnel</a>
+    <a>
+        <form name="Recherche" action="page-envoi.html" method="post">
+        <input type="text" name="search" placeholder="Search ..." width="330px" required>
+        <button type="Submit">Lancer la recherche</button>
+        </form>
+</a>
+
+
+</div>
+
+
+
+<div class="content">
+
+<h3 style="text-align:center"> Ajouter un article </h3>
+
+<form name="mon-formulaireArticle" action="page-envoi.html" method="post">
+
+    <p>
+        <label  for="Auteur"><span> Auteur :</span></label>
+        <input type="text" id="Auteur" name="Auteur_name" placeholder="Votre nom ..." autofocus required/>
+    </p>
+
+    <p>
+        <label for="Titre"><span> Titre?: </span></label>
+        <input type="text" id="Titre" name="titre_article" placeholder="Le titre de votre article ..." required>
+    </p>
+
+    <p>
+        <label for="Mots_cles"><span> Mots clés?:</span></label>
+        <input type="text" id="Mots_cles" name="Mots_cles_article" placeholder=" Les mots clés de votre article ...">
+    </p>
+
+    <p>
+        <label for="Contenu"><span>Contenu : </span></label>
+        <textarea id="Contenu" name="contenu_article" rows="60" cols="50" placeholder="Le contenu de votre article ..." required></textarea>
+    </p>
+
+    <p class="button">
+        <button class="button"  type="submit">Soummettre article</button>
+    </p>
+
+</form>
+
+</div>
+
+<div class="footer">
+  <p> Footer ... </p>
+</div>
+
+</body>
+</html>
