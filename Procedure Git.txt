@@ -84,6 +84,9 @@ create mode 100644 templates/template_FormArticle.html
 
 
 
+git config --global user.email "atoke.fred@hotmail.com"
+git config --global user.name "atoke Monsia"
+
 $ git push
 
 Enumerating objects: 7, done.
