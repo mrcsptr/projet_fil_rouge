@@ -11,42 +11,43 @@ class article:
 		self.contenu = contenu
 		self.categorie = categorie
 		self.keywords = keywords
-				
-	def setNom(self, nom):
-		self.nom = nom
-		
-	def getNom(self):
-		return self.nom
-		
-	def setAuteur(self, auteur):
-		self.auteur =auteur
-		
-	def getAuteur(self, auteur):
-		return self.auteur
-		
-	def setDate(self, date):
-		self.date = date
-		
-	def getDate(self):
-		return self.date	
-		
-	def setContenu(self, contenu):
-		self.contenu = contenu
-		
-	def getDate(self):
-		return self.contenu	
-		
-	def setCategorie(self, categorie):
-		self.categorie = categorie
-		
-	def getCategorie(self):
-		return self.categorie
-		
-	def setKeywords(self, keywords):
-		self.keywords = keywords
-	
-	def getKeywords(self):
-		return keywords
+		self.format = 	{'Auteur': self.auteur , 'Titre': self.nom, 'Mots_cles': self.keywords,'Contenu': self.contenu, 'Categorie': self.categorie}	
 
-def afficherArticle(self):
+
+	def nameControl(self):
+		if self.nom != '':
+			return True
+		else:
+			return False
+			
+	def auteurControl(self):
+		if self.auteur != '':
+			return True
+		else:
+			return False
+			
+	def keywordsControl(self):
+		if self.keywords != '':
+			return True
+		else:
+			return False
+			
+	def contenuControl(self):
+		if self.contenu != '':
+			return True
+		else:
+			return False
+			
+	def categorieControl(self):
+		if self.categorie != '':
+			return True
+		else:
+			return False		
+
+	def isValid(self):
+		check = [self.nameControl(), self.auteurControl(), self.keywordsControl(), self.contenuControl(), self.categorieControl()]
+		if all(check):
+			return True
+		else:
+			return False
 	
