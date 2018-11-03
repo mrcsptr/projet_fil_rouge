@@ -6,5 +6,27 @@
 	<li>{{elt}}</li>
 {% endfor %}
 </ul>
+
+</div>
+
+	<label for="Soummettrecommentaire"><span>Commentaires: </span></label>
+
+<form>
+		<p>
+			{{commentaires}}
+		<p>
+ 	</form>
+
+<div class="footer">
+
+ 	<form name="Comment"  method="post">
+		<p>
+            <input type="text" id="Auteur_comment" name="Auteur_comment"  placeholder="Votre nom ..." autofocus required/>
+			<textarea name="contenu_comment" id="contenu_comment" rows="2" cols="127" placeholder="Veuillez saisir votre commentaire ..." required></textarea>
+        <button type="Submit">Soumettre</button>
+		<p>
+ 	</form>
+</div>
+
 </body>
 </html>
