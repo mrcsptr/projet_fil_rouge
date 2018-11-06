@@ -14,21 +14,21 @@ mongo = PyMongo(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	if request.method == 'POST':
-		monuments = mongo.db.monuments.find({'INSEE': request.form['search']})
-		return render_template('article.html', monuments = monuments)
+		article = mongo.db.articles.find({'Titre': request.form['search']})[0]
+		return render_template('article.html', article = article)
 	return render_template('index.html')
 	
 @app.route('/<chaine>/')
 def connexion_article(chaine):
-	monuments = mongo.db.monuments.find({'INSEE': chaine})
-	return render_template('article.html', monuments = monuments)
+	article = mongo.db.articles.find({'Titre': chaine})[0]
+	return render_template('article.html', article = article)
 
 @app.route('/ajouterArticle/', methods=['GET', 'POST'])
 def ajouterArticle():
 	if request.method == 'POST':
 		newArticle = article(request.form["titre_article"],request.form["Auteur_name"], datetime.datetime.now(), request.form["contenu_article"], request.form["categorie_article"], request.form["Mots_cles_article"])
 		if newArticle.isValid() == True:
-			ajoutArticle = mongo.db.monuments.insert(newArticle.format)
+			ajoutArticle = mongo.db.articles.insert_one(newArticle.format)
 			return render_template('temp_Conf_soumissionArticle.html')
 		else:
 			return render_template('template_FormArticle.html')
