@@ -11,7 +11,7 @@ class article:
 		self.contenu = contenu
 		self.categorie = categorie
 		self.keywords = keywords
-		self.format = 	{'Auteur': self.auteur , 'Titre': self.nom, 'Mots_cles': self.keywords,'Contenu': self.contenu, 'Categorie': self.categorie}	
+		self.format = 	{'Auteur': self.auteur , 'Titre': self.nom, 'Mots_cles': self.keywords,'Contenu': self.contenu, 'Categorie': self.categorie, 'Date': self.date}	
 
 
 	def nameControl(self):
