@@ -14,13 +14,13 @@ mongo = PyMongo(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	if request.method == 'POST':
-		article = mongo.db.articles.find({'Titre': request.form['search']})[0]
+		article = mongo.db.articles.find_one({'Titre': request.form['search']})
 		return render_template('article.html', article = article)
 	return render_template('index.html')
 	
 @app.route('/<chaine>/')
 def connexion_article(chaine):
-	article = mongo.db.articles.find({'Titre': chaine})[0]
+	article = mongo.db.articles.find_one({'Titre': chaine})
 	return render_template('article.html', article = article)
 
 @app.route('/ajouterArticle/', methods=['GET', 'POST'])
