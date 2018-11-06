@@ -140,8 +140,16 @@
     </p>
 	
 	<p>
-        <label for="categorie"><span> Catégorie :</span></label>
-        <input type="text" id="categorie" name="categorie_article" placeholder=" La catégorie de votre article ...">
+    <form id="send" action="#" method="get">
+		<fieldset>
+			<legend>Choisissez la catégorie...</legend>
+			<input type="text" name="categorie" list="catégories" autocomplete="on"/>
+			<datalist id="catégories">
+			</datalist>
+		</fieldset>
+		<label for="catégorie">...ou proposez-en une nouvelle.</label>
+		<input id="catégories" type="text" name="categorie">
+	</form>
     </p>
 
     <p>
