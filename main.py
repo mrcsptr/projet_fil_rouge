@@ -41,7 +41,7 @@ def ajouterCommentaire():
     newComment = commentaires(chaine, request.form["Auteur_comment"], datetime.datetime.now(),
                               request.form["contenu_commment"])
     if newComment.isValid() == True:
-        ajoutComment = mongo.db.commentaires.insert(newComment.format)
+        ajoutComment = mongo.db.commentaires.insert_one(newComment.format)
         return render_template('temp_Conf_soumissionComment.html')  # page à renvoyer
     else:
         return render_template(
