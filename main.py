@@ -35,15 +35,20 @@ def ajouterArticle():
 			
 	return render_template('template_FormArticle.html')
 	
-#@app.route('/ajouterCommentaire/', methods=['GET', 'POST'])
-#def ajouterCommentaire ():
-#	if request.method == 'POST':
-#		Auteur_commentaire = request.form["Auteur_comment"]                # attribut name de l'input (voir formulaire page html 'article.html'
-#		Contenu_commentaire = request.form["contenu_comment"]
-#		# ajouter le contenu du commentaire dans la base de données mongoDB
-#		ajoutComment = mongo.db.monuments.update({'auteur': Auteur_commentaire}, {$set:{'Commentaires': Contenu_commentaire}})     # vérifier comment 'auteur' est écrit dans la base de données mongoDB
-#		return render_template('temp_Conf_soumissionArticle.html')     # page à retourner
-#	return render_template('article.html', monuments = monuments)      # page à consulter pour récupérer les informations nécessaires
+
+@app.route('/article/<chaine>/commentaires/')
+def ajouterCommentaire():
+    newComment = commentaires(chaine, request.form["Auteur_comment"], datetime.datetime.now(),
+                              request.form["contenu_commment"])
+    if newComment.isValid() == True:
+        ajoutComment = mongo.db.commentaires.insert_one(newComment.format)
+        return render_template('temp_Conf_soumissionComment.html')  # page à renvoyer
+    else:
+        return render_template(
+            'template_FormArticle.html')  # page à renvoyer   / à modifier pour afficher message d'erreur
+
+    return render_template('template_FormCommentaires.html')  # page à consulter pour récupérer les informations nécessaires
+
 
 if __name__ == '__main__':
 	app.run(debug=True)
