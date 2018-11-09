@@ -15,7 +15,7 @@ mongo = PyMongo(app)
 def index():
 	if request.method == 'POST':
 		article = mongo.db.articles.find_one({'Titre': request.form['search']})
-		return render_template('article.html', article = article)
+		return redirect(url_for('connexion_article', chaine = article['Titre']))
 	return render_template('index.html')
 	
 @app.route('/<chaine>/')
