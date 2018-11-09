@@ -23,7 +23,7 @@ class commentaires():
         mots_interdit.extend(cap_mots_interdit)  # fusion des listes
         mots_interdit.extend(lower_mots_interdit)
         for elt in mots_interdit:
-            for mot in contenu_comment.split():
+            for mot in self.contenu_comment.split():
                 if re.search(elt, mot) is None:
                     x = 0
                 else:
@@ -32,7 +32,7 @@ class commentaires():
         return str(result)
 
     def contenu_isValid(self):
-        if self.contenu_commentControl == "0":
+        if self.contenu_commentControl() == "0":
             return True
         else:
             return False

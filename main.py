@@ -7,6 +7,7 @@ from flask_pymongo import PyMongo
 from article import *
 import datetime
 from commentaire import *
+import re
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/wiki"
@@ -29,7 +30,7 @@ def ajouterArticle():
 	if request.method == 'POST':
 		newArticle = article(request.form["titre_article"],request.form["Auteur_name"], datetime.datetime.now(), 
 			request.form["contenu_article"], request.form["categorie_article"], request.form["Mots_cles_article"])
-		if newArticle.isValid() == True:
+		if newArticle.isValid():
 			ajoutArticle = mongo.db.articles.insert_one(newArticle.format)
 			return render_template('temp_Conf_soumissionArticle.html')
 		else:
@@ -38,19 +39,20 @@ def ajouterArticle():
 	return render_template('template_FormArticle.html')
 	
 
-@app.route('/<chaine>/commentaires/')
+@app.route('/<chaine>/commentaires/', methods=['GET', 'POST'])
 def ajouterCommentaire(chaine):
 	if request.method == 'POST':
 		newComment = commentaires(chaine, request.form["Auteur_comment"], datetime.datetime.now(),
-                              request.form["contenu_commment"])
-		if newComment.isValid() == True:
+                              request.form["contenu_comment"])
+		if newComment.contenu_isValid():
 			ajoutComment = mongo.db.commentaires.insert_one(newComment.format)
 			return render_template('temp_Conf_soumissionComment.html')  # page à renvoyer
 		else:
 			return render_template(
-            'template_FormArticle.html')  # page à renvoyer   / à modifier pour afficher message d'erreur
-
-	return render_template('template_FormCommentaires.html')  # page à consulter pour récupérer les informations nécessaires
+           'template_FormArticle.html')  # page à renvoyer   / à modifier pour afficher message d'erreur
+	
+	comment = mongo.db.commentaires.find({'Article': chaine})
+	return render_template('template_FormCommentaires.html', comment = comment)  # page à consulter pour récupérer les informations nécessaires
 
 
 if __name__ == '__main__':

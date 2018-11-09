@@ -133,7 +133,11 @@ body {
 
 <form>
 		<p>
-			{{commentaires}}
+			{% for elt in comment%}
+			<li>
+			{{elt['Contenu']}}
+			</li>
+			{%endfor%}
 		<p>
  	</form>
 
