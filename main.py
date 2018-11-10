@@ -24,15 +24,34 @@ def index():
 		return redirect(url_for('connexion_article', chaine = article['Titre']))
 	return render_template('index.html')
 	
+
+@app.route('/sInscrire/', methods=['GET', 'POST'])
+def sInscrire():
+	if request.method == 'POST':
+		pseudo = request.form["pseudo"]        # récupération du pseudo
+		if pseudo in session:                  # si le pseudo était déjà enrégistré
+			return " Le login que vous avez saisi, existe déjà, veillez en choisir un autre"     
+		else:
+			session[pseudo] = pseudo           # si le pseudo n'était pas encore enrégistré
+			session[mdp] = mdp           # si le pseudo n'était pas encore enrégistré			
+			newUser = users(request.form["nom"],request.form["prenom"], pseudo , request.form["pass"] , request.form["tel"], request.form["mail"] ,image = "images.png")
+			if newUser.isValid():
+				ajoutUser = mongo.db.users.insert_one(newUser.afficher())
+				return render_template('NewespacePerso.html', pseudo=session[pseudo])    # on renvoit la page perso du nouvel utilisateur avec le message bienvenu
+			else:
+				return "Erreur: Veuillez remplir correctement le formulaire d'inscription."
+	return render_template('sInscrire.html')
+
+
 @app.route('/seConnecter/', methods=['GET', 'POST'])
 def seConnecter():
 	if request.method == 'POST':
 		pseudo = request.form["pseudo"]        # récupération du pseudo
-		if pseudo in session:                  # si le pseudo était déjà enrégistré
+		findUser = mongo.db.users.find_one({'pseudo': request.form["pseudo"]})
+		if findUser[pseudo]== pseudo and findUser[mdp]== request.form["pass"] : 
 			return render_template('espacePerso.html', pseudo=session[pseudo])   # on renvoit la page perso de l'utilisateur
-		else:
-			session[pseudo] = pseudo           # si le pseudo n'était pas encore enrégistré
-			return render_template('NewespacePerso.html', pseudo=session[pseudo])    # on renvoit la page perso du nouvel utilisateur avec le message bienvenu
+		else:			
+			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
 	return render_template('seConnecter.html')
 	
 @app.route('/<chaine>/')
