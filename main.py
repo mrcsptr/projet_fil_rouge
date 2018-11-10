@@ -20,9 +20,9 @@ app.secret_key = 'my secret key'  # clé secrète et unique à fixer pour pouvoi
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	if request.method == 'POST':
-		article = mongo.db.articles.find_one({'Titre': request.form['search']})
-		return redirect(url_for('connexion_article', chaine = article['Titre']))
-	return render_template('index.html')
+		article = mongo.db.articles.find_one({'Titre': request.form['search']}) # recherche de l'article dans la base
+		return redirect(url_for('connexion_article', chaine = article['Titre'])) # redirection vers la page de l'article
+	return render_template('index.html') # affichage page d'accueil
 	
 
 @app.route('/sInscrire/', methods=['GET', 'POST'])
@@ -58,8 +58,8 @@ def seConnecter():
 	
 @app.route('/<chaine>/')
 def connexion_article(chaine):
-	article = mongo.db.articles.find_one({'Titre': chaine})
-	return render_template('article.html', article = article)
+	article = mongo.db.articles.find_one({'Titre': chaine}) # recherche de l'article dans la base
+	return render_template('article.html', article = article) # redirection vers la page de l'article
 
 @app.route('/ajouterArticle/', methods=['GET', 'POST'])
 def ajouterArticle():
