@@ -109,11 +109,7 @@
 <a href="#">Accueil</a>
   <a href="#">Espace Personnel</a>
     <a>
-<<<<<<< HEAD
         <form name="Recherche" method="post">
-=======
-        <form name="Recherche" action="article.html" method="post">
->>>>>>> upstream/master
         <input type="text" name="search" placeholder="Search ..." width="330px" required>
         <button type="Submit">Lancer la recherche</button>
         </form>
@@ -126,24 +122,15 @@
 
 <div class="content">
 
-<h1>
-{{ article['Titre'] }}
-</h1>
-
-<h4>
-{{ article['Contenu']}}
-</h4>
-<h5>
-article créé le {{article['Date']}} par {{ article['Auteur']}}.
-</h5>
+ 
+<p>  "Bonjour {{pseudo}}, c'est votre première visite!"   </p>
+<p>  "Bienvenue dans votre espace personnel.  </p>
 
 </div>
-<a href="commentaires">Commentaires</a>
 
 <div class="footer">
  <p> Footer ... </p>
 </div>
-
 
 </body>
 </html>

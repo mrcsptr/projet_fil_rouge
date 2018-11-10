@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box;}
+
+<body margin: 15;  font-family: Verdana, Helvetica, sans-serif;
+
+.topnav <overflow: hidden; background-color: #e9e9e9>
+
+.topnav a <float: left; display: block; color: blue; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px>
+
+.topnav a:hover <background-color: #ccc; color: blue>
+
+.topnav a.active <background-color: #2196F3; color: white>
+
+.topnav .search-container <float: right>
+
+.topnav input[type=text] <padding: 6px; margin-top: 8px; font-size: 17px; border: none>
+
+.topnav .search-container button <float: right; padding: 6px; margin-top: 8px; margin-right: 16px; background: #ddd; font-size: 17px; border: none;cursor: pointer>
+
+.topnav .search-container button:hover <background: #ddd>
+
+@media screen and (max-width: 600px) <
+  .topnav .search-container <float: none>
+
+  .topnav a, .topnav input[type=text], .topnav .search-container button <float: none; display: block; text-align: center; width: 100%; margin: 0; padding: 14px>
+  .topnav input[type=text] <border: 1px solid #ccc>
+  >
+
+</style>
+</head>
+<body>
+<style>
+body {
+   background-image: url("https://sitel.com.mk/sites/default/files/styles/large/public/article/teaser-images/2017/may/background-book-119954.jpg?itok=wCZlMhiG");
+   background-repeat:no-repeat;
+   background-size:cover;
+}
+</style>
+<CENTER><TABLE border=1; style="background-color:#ECF0F1;">
+<TR>
+<TD>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="A_propos">à propos</a>
+  <a href="contact">Contact</a>
+ 
+</div>
+
+
+
+
+<form name="Se_connecter" method="post" >
+   <p>
+       <label for="pseudo">Votre pseudo :</label>
+       <input type="text" name="pseudo" id="pseudo" />
+
+       <br />
+       <label for="pass">Votre mot de passe :</label>
+       <input type="password" name="pass" id="pass" />
+	   
+	   <br />
+		<button type="Submit">Se connecter</button>
+   </p>
+</form>
+
+
+
+</TD>
+</TR>
+</TABLE></CENTER>
+
+</body>
+</html>
