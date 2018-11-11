@@ -22,7 +22,7 @@ def index():
 	if request.method == 'POST':
 		article = mongo.db.articles.find_one({'Titre': request.form['search']}) # recherche de l'article dans la base
 		if article is None:
-			return render_template('index.html')
+			keyword = mongo.db.articles.find({'Mots_cles': request.form['search']})
 		else:
 			return redirect(url_for('connexion_article', chaine = article['Titre'])) # redirection vers la page de l'article
 	return render_template('index.html') # affichage page d'accueil
