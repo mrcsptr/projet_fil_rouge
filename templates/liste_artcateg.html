@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+# /categories/{{chaine}} est le lien menant vers une liste d'articles ayant comme valeur {{chaine}} pour l'attribut "catégorie"
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Liste des articles de la catégorie {{chaine}} </title>
+    </head>
+
+    <body>
+        <h1>Il y a {{ nbr_artcateg }} articles dans cette catégorie.</h1>
+		
+		<h2>Voici les articles de la catégorie :</h2>
+
+		<ul>
+			{% for article in artcateg %}
+				<li><a href = 'http://localhost:5000/{{article["Titre"]}}'>{{article['Titre']}}
+				</a></li>
+				{% endfor %}	
+		</ul>	
+    </body>
+</html>

@@ -3,11 +3,12 @@
 # coding: utf-8
 
 from flask import *
-from flask_pymongo import PyMongo
+from flask_pymongo import *
 from article import *
 from users import *
 import datetime
 from commentaire import *
+from users import *
 import re
 
 app = Flask(__name__)
@@ -29,6 +30,7 @@ def index():
 	return render_template('index.html') # affichage page d'accueil
 	
 
+<<<<<<< HEAD
 @app.route('/conditions/', methods=['GET', 'POST'])
 def conditions():
 	return render_template('conditions.html')
@@ -59,16 +61,41 @@ def inscription():
                         return "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur la saisie."
                         
         return render_template('inscription.html') # envoyer la page d'inscription
+=======
+@app.route('/inscription/', methods=['GET', 'POST'])
+def sInscrire():
+	if request.method == 'POST':
+		pseudo = request.form["pseudo"]        # récupération du pseudo
+		if pseudo in session:                  # si le pseudo était déjà enrégistré
+			return " Le login que vous avez saisi, existe déjà. Veuillez en choisir un autre."     
+		else:
+			session[pseudo] = pseudo			# si le pseudo n'était pas encore enregistré
+			session[mdp] = mdp           		# si le pseudo n'était pas encore enregistré			
+			newUser = users(request.form["nom"],request.form["prenom"], pseudo , request.form["pass"] , request.form["tel"], request.form["mail"] ,image = "images.png")
+			if newUser.isValid():
+				ajoutUser = mongo.db.users.insert_one(newUser.afficher())
+				return render_template('NewespacePerso.html', pseudo=session[pseudo])    # on renvoit la page perso du nouvel utilisateur avec le message bienvenue
+			else:
+				return "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur les saisies."
+	return render_template('inscription.html')
+>>>>>>> upstream/master
 
 
 @app.route('/seConnecter/', methods=['GET', 'POST'])
 def seConnecter():
 	if request.method == 'POST':
 		pseudo = request.form["pseudo"]        # récupération du pseudo
+<<<<<<< HEAD
 		findUser = mongo.db.users.find_one({'pseudo': pseudo})
 		if findUser == None : 
 			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
 		elif findUser['pseudo']== pseudo and findUser['mdp']== request.form["pass"] : 
+=======
+		findUser = mongo.db.users.find_one({'Pseudo': request.form["pseudo"]})
+		if findUser == None : 
+			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
+		elif findUser['Pseudo']== request.form["pseudo"] and findUser['psswd']== request.form["pass"] :
+>>>>>>> upstream/master
 			return render_template('espacePerso.html', pseudo=session[pseudo])   # on renvoit la page perso de l'utilisateur
 		else: 
 			return "Erreur: Mot de passe / login incorrect. "    
@@ -109,5 +136,19 @@ def ajouterCommentaire(chaine):
 	return render_template('template_FormCommentaires.html', comment = comment)  # page à consulter pour récupérer les informations nécessaires
 
 
+@app.route('/categories/')
+def liste_categories():
+	categories = mongo.db.articles.find().distinct('Categorie')		# récupère et classe chaque catégorie dans la collection d'articles
+	return render_template('liste_categories.html', categories = categories) 							# page listant toutes les catégories existantes
+
+	
+@app.route('/categories/<chaine>/')
+def articles_dunecategorie(chaine):
+	print(chaine)
+	nbr_artcateg = mongo.db.articles.find({'Categorie': chaine}).count()						# compte le nombre d'articles de la catégorie "chaine"
+	artcateg = mongo.db.articles.find({'Categorie': chaine}) 	# récupère les titres d'articles d'une catégorie et les classe
+	return render_template('liste_artcateg.html', nbr_artcateg = nbr_artcateg, artcateg = artcateg, chaine = chaine)		# page listant tous les articles de la catégorie sélectionnée
+	
+	
 if __name__ == '__main__':
 	app.run(debug=True)
