@@ -12,9 +12,10 @@
 
 	<h1>Choisissez la catégorie d'articles que vous cherchez :</h1>
 		<ul>
-			{% for categorie in {{categories}} %}
-				<li><a>{{ categorie }}
-				</a></li>
+			{% for cat in categories %}
+				<li>
+				<a href = {{ cat }} >{{ cat }}</a>
+				</li>
 			{% endfor %}
 		</ul>
     </body>

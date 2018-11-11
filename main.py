@@ -3,7 +3,7 @@
 # coding: utf-8
 
 from flask import *
-from flask_pymongo import PyMongo
+from flask_pymongo import *
 from article import *
 import datetime
 from commentaire import *
@@ -96,15 +96,16 @@ def ajouterCommentaire(chaine):
 
 @app.route('/categories/')
 def liste_categories():
-	categories = mongo.db.articles.distinct('categorie_article').sort({'categorie_article':1})			# récupère et classe chaque catégorie dans la collection d'articles
+	categories = mongo.db.articles.find().distinct('Categorie')		# récupère et classe chaque catégorie dans la collection d'articles
 	return render_template('liste_categories.html', categories = categories) 							# page listant toutes les catégories existantes
 
 	
 @app.route('/categories/<chaine>/')
 def articles_dunecategorie(chaine):
-	nbr_artcateg = mongo.db.articles.find({'categorie_article': chaine}).count()						# compte le nombre d'articles de la catégorie "chaine"
-	artcateg = mongo.db.articles.find({'categorie_article': chaine}, {'Titre':1}).sort({'Titre': 1})	# récupère les titres d'articles d'une catégorie et les classe
-	return render_template('liste_artcateg.html', nbr_artcateg = nbr_artcateg, artcateg = artcateg)		# page listant tous les articles de la catégorie sélectionnée
+	print(chaine)
+	nbr_artcateg = mongo.db.articles.find({'Categorie': chaine}).count()						# compte le nombre d'articles de la catégorie "chaine"
+	artcateg = mongo.db.articles.find({'Categorie': chaine}) 	# récupère les titres d'articles d'une catégorie et les classe
+	return render_template('liste_artcateg.html', nbr_artcateg = nbr_artcateg, artcateg = artcateg, chaine = chaine)		# page listant tous les articles de la catégorie sélectionnée
 	
 	
 if __name__ == '__main__':
