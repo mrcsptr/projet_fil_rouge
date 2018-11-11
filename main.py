@@ -1,4 +1,4 @@
-#main
+﻿#main
 
 # coding: utf-8
 
@@ -28,7 +28,7 @@ def index():
 	return render_template('index.html') # affichage page d'accueil
 	
 
-@app.route('/sInscrire/', methods=['GET', 'POST'])
+@app.route('/inscription/', methods=['GET', 'POST'])
 def sInscrire():
 	if request.method == 'POST':
 		pseudo = request.form["pseudo"]        # récupération du pseudo
@@ -43,7 +43,7 @@ def sInscrire():
 				return render_template('NewespacePerso.html', pseudo=session[pseudo])    # on renvoit la page perso du nouvel utilisateur avec le message bienvenu
 			else:
 				return "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur les saisies."
-	return render_template('sInscrire.html')
+	return render_template('inscription.html')
 
 
 @app.route('/seConnecter/', methods=['GET', 'POST'])
