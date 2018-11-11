@@ -7,6 +7,7 @@ from flask_pymongo import *
 from article import *
 import datetime
 from commentaire import *
+from users import *
 import re
 
 app = Flask(__name__)
@@ -50,10 +51,10 @@ def sInscrire():
 def seConnecter():
 	if request.method == 'POST':
 		pseudo = request.form["pseudo"]        # récupération du pseudo
-		findUser = mongo.db.users.find_one({'pseudo': request.form["pseudo"]})
+		findUser = mongo.db.users.find_one({'Pseudo': request.form["pseudo"]})
 		if findUser == None : 
 			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
-		elif findUser['pseudo']== request.form["pseudo"] and findUser['mdp']== request.form["pass"] : 
+		elif findUser['Pseudo']== request.form["pseudo"] and findUser['psswd']== request.form["pass"] :
 			return render_template('espacePerso.html', pseudo=session[pseudo])   # on renvoit la page perso de l'utilisateur
 		else: 
 			return "Erreur: Mot de passe / login incorrect. "    
