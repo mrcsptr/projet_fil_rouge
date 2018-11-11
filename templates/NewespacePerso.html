@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
 <head>
-    <meta charset="UTF-8">
-    <title>Confirmation soumission article</title>
+    <title>Espace Personnel Nouvel utilisateur</title>
 
 
       <style>
@@ -35,13 +35,7 @@
         margin-top: 1em
       }
 
-      label {
-        /* Fixer l'alignement et la taille des intitulés */
-        display: inline-block;
-        width: 100px;
-        text-align: right
-       }
-
+      
         textarea {
         /* Alignement avec les champs précédents */
         vertical-align: top;
@@ -90,6 +84,11 @@
     color: black
 }
 
+.topnav <overflow: hidden; background-color: #e9e9e9>
+.topnav a:hover <background-color: #ccc; color: blue>
+
+.topnav a.active <background-color: #2196F3; color: white>
+
 /* Style the content */
 .content {
     background-color: #ddd;
@@ -103,34 +102,77 @@
     padding: 10px
 }
 
+
     </style>
 
     <div class="topnav">
 <a href="#">Accueil</a>
   <a href="#">Espace Personnel</a>
-    <a>
-        <form name="Recherche" method="post">
-        <input type="text" name="search" placeholder="Search ..." width="330px" required>
-        <button type="Submit">Lancer la recherche</button>
-        </form>
-</a>
-</div>
 
+</div>
 </head>
-
 <body>
+<style>
+body {
+   background-image: url("https://sitel.com.mk/sites/default/files/styles/large/public/article/teaser-images/2017/may/background-book-119954.jpg?itok=wCZlMhiG");
+   background-repeat:no-repeat;
+   background-size:cover;
+}
 
-<div class="content">
 
+
+</style>
+
+
+
+
+
+<div class="content" style="text-align:center;">
+
+
+<h1 > "Bonjour {{pseudo}}, c'est votre première visite!" </h1>
+
+<h2 >  Bienvenue dans votre espace personnel.  </h2>
+
+
+
+
+<form >
+ <p>
+ <img src="/images/images.png" alt="Icon"> </p>
  
-<p>  "Bonjour {{pseudo}}, c'est votre première visite!"   </p>
-<p>  "Bienvenue dans votre espace personnel.  </p>
+ <h3 style="text-align:center;">  Informations Personnelles  </h3> 
+    
+  <form style="text-align:center;">
+  <p>
+            <label class="label" for="Nom">Nom : {{nom}}</label> <br><br>
+			
+            <label class="label" for="Prénom">Prénom :{{prenom}} </label> <br><br> 
+			
+            <label class="label" for="pseudo"> Pseudo : {{pseudo}} </label> <br><br> 
+		
+            <label class="label" for="Password">Password : {{pwd}} </label> <br><br>
+			
+            <label class="label" for="numéro de téléphone">Numéro de téléphone : {{tel}} </label> <br><br> 
+			
+            <label class="label" for="Email">Email : {{email}} </label> <br><br> 
+			
+                
+            <input type="submit" value="Modifier Profil"> <br><br> 
+	   
+  	    	<a href="conditions.html">Lire les conditions sur les saisies </a>
+	    </p>
+        </form>
+  
+<form >
+ <h3 style="text-align:center;">  Statistiques </h3> 
+<p>	
+<label class="label" for="Nom">Contributions : {{contribution}}</label><br><br>
+<a href="articlesSoumis.html">Articles publiés </a>
+ </p>
 
-</div>
+</form>
 
-<div class="footer">
- <p> Footer ... </p>
-</div>
-
+</form>
 </body>
 </html>
