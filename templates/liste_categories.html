@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+# cette page répertorie les catégories présentes comme attribut dans la collection d'articles
+# le lien vers cette page se fait par le bouton "catégories" présent dans la barre de navigation et son chemin /categories/
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Liste des catégories</title>
+    </head>
+
+    <body>
+
+	<h1>Choisissez la catégorie d'articles que vous cherchez :</h1>
+		<ul>
+			{% for categorie in {{categories}} %}
+				<li><a>{{ categorie }}
+				</a></li>
+			{% endfor %}
+		</ul>
+    </body>
+</html>
+
+
