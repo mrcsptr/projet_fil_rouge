@@ -130,7 +130,7 @@ body {
 		<p>
 			{% for elt in comment%}
 			<li>
-			le {{elt['Date']}}, {{elt['Auteur']}} a écrit : {{elt['Contenu']}}
+			{{elt['Contenu']}} écrit par {{elt['Auteur']}} le {{elt['Date']}}
 			</li>
 			{%endfor%}
 		<p>

@@ -11,7 +11,7 @@ class commentaires():
         self.auteur_comment = auteur_comment  # auteur du commentaire
         self.date_comment = date_comment  # date du commentaire
         self.contenu_comment = contenu_comment  # contenu du commentaire
-        self.format = {'Auteur': self.auteur_comment, 'Contenu': self.contenu_comment, 'Article': self.nom}
+        self.format = {'Auteur': self.auteur_comment, 'Contenu': self.contenu_comment, 'Article': self.nom, 'Date': self.date_comment}
 
     def contenu_commentControl(self):
         result = 0  # initialisation

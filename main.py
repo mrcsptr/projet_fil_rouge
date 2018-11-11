@@ -66,10 +66,10 @@ def connexion_article(chaine):
 
 @app.route('/ajouterArticle/', methods=['GET', 'POST'])
 def ajouterArticle():
-	if request.method == 'POST':
+	if request.method == 'POST': # création article
 		newArticle = article(request.form["titre_article"],request.form["Auteur_name"], datetime.datetime.now(), 
 			request.form["contenu_article"], request.form["categorie_article"], request.form["Mots_cles_article"])
-		if newArticle.isValid():
+		if newArticle.isValid(): # vérification que l'article est valide
 			ajoutArticle = mongo.db.articles.insert_one(newArticle.format)
 			return render_template('temp_Conf_soumissionArticle.html')
 		else:
