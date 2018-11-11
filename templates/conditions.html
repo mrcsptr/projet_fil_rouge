@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+    <title>Conditions</title>
+
+
+           <style>
+
+        form {
+        /* Centrer et définir la taille du formulaire sur la page */
+        margin: 0 auto;
+        width: 950px;
+        /* Encadrer pour voir les limites du formulaire */
+        padding: 1em;
+        border: 1px solid #CCC;
+        border-radius: 1em
+      }
+
+        input, textarea {
+        /* To make sure that all text fields have the same font settings By default, textareas have a monospace font */
+        font: 1em sans-serif;
+        /* Fixer la longueur des champs */
+        width: 730px;
+        box-sizing: border-box; /* To harmonize the look & feel of text field border */
+        border: 1px solid #999
+      }
+
+      input:focus, textarea:focus {
+        /* To give a little highlight on active elements */
+        border: 3px solid #555
+      }
+
+    form div + div {
+        margin-top: 1em
+      }
+
+      
+        textarea {
+        /* Alignement avec les champs précédents */
+        vertical-align: top;
+        /* Fixer le nombre de ligne */
+        height: 30em
+      }
+
+      button {
+        /* Fixer la longueur et la hauteur du bouton */
+        width: 180px;
+        font-size: 17px;
+        background-color: #e7e7e7; color: black; /* Gray */
+        color: black;
+        border: 2px solid #4CAF50; /* Green */
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        margin-left: auto;
+    margin-right: auto
+      }
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+
+
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black
+}
+
+.topnav <overflow: hidden; background-color: #e9e9e9>
+.topnav a:hover <background-color: #ccc; color: blue>
+
+.topnav a.active <background-color: #2196F3; color: white>
+
+/* Style the content */
+.content {
+    background-color: #ddd;
+    padding: 10px
+
+}
+
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 10px
+}
+
+
+    </style>
+
+    <div class="topnav">
+<a href="#">Accueil</a>
+  <a href="#">Espace Personnel</a>
+   
+</div>
+</head>
+
+<body>
+<style>
+body {
+   background-image: url("https://sitel.com.mk/sites/default/files/styles/large/public/article/teaser-images/2017/may/background-book-119954.jpg?itok=wCZlMhiG");
+   background-repeat:no-repeat;
+   background-size:cover;
+}
+
+
+
+</style>
+
+  
+
+
+<div class="content" style="text-align:center;">
+
+<h1>Conditions sur la saisie</h1>
+        
+        <form method="post">
+            <label class="label-grand" for="Nom">Nom : que des lettres </label><br></br>
+            <label class="label-grand" for="Prénom">Prénom: que des lettres </label><br></br>
+            <label class="label-grand" for="pseudo">Pseudo : laissez votre imagination vous guidez </label><br></br>
+            <label class="label-grand" for="Password">Password : minimum 8 charactères </label><br></br>
+                
+            <label class="label-grand" for="numéro de téléphone">Numéro de téléphone : 10 chiffres, vous pouvez les séparer par . - ou _  </label><br></br>
+            <label class="label-grand" for="Email">Email: email@messagerie.fr </label><br></br>
+
+	    <p>
+  	    	<a href="http://localhost:5000/inscription">Revenir à la page d'inscription </a>
+	    </p>
+        </form>
+
+</div>
+</body>
+</html>
