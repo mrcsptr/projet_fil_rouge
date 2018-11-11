@@ -30,7 +30,7 @@ def sInscrire():
 	if request.method == 'POST':
 		pseudo = request.form["pseudo"]        # récupération du pseudo
 		if pseudo in session:                  # si le pseudo était déjà enrégistré
-			return " Le login que vous avez saisi, existe déjà, veillez en choisir un autre"     
+			return " Le login que vous avez saisi, existe déjà. Veuillez en choisir un autre."     
 		else:
 			session[pseudo] = pseudo           # si le pseudo n'était pas encore enrégistré
 			session[mdp] = mdp           # si le pseudo n'était pas encore enrégistré			
@@ -39,7 +39,7 @@ def sInscrire():
 				ajoutUser = mongo.db.users.insert_one(newUser.afficher())
 				return render_template('NewespacePerso.html', pseudo=session[pseudo])    # on renvoit la page perso du nouvel utilisateur avec le message bienvenu
 			else:
-				return "Erreur: Veuillez remplir correctement le formulaire d'inscription."
+				return "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur les saisies."
 	return render_template('sInscrire.html')
 
 
@@ -48,10 +48,12 @@ def seConnecter():
 	if request.method == 'POST':
 		pseudo = request.form["pseudo"]        # récupération du pseudo
 		findUser = mongo.db.users.find_one({'pseudo': request.form["pseudo"]})
-		if findUser[pseudo]== pseudo and findUser[mdp]== request.form["pass"] : 
-			return render_template('espacePerso.html', pseudo=session[pseudo])   # on renvoit la page perso de l'utilisateur
-		else:			
+		if findUser == None : 
 			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
+		elif findUser['pseudo']== request.form["pseudo"] and findUser['mdp']== request.form["pass"] : 
+			return render_template('espacePerso.html', pseudo=session[pseudo])   # on renvoit la page perso de l'utilisateur
+		else: 
+			return "Erreur: Mot de passe / login incorrect. "    
 	return render_template('seConnecter.html')
 	
 @app.route('/<chaine>/')
