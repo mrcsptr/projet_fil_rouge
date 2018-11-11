@@ -5,6 +5,7 @@
 from flask import *
 from flask_pymongo import PyMongo
 from article import *
+from users import *
 import datetime
 from commentaire import *
 import re
@@ -28,32 +29,46 @@ def index():
 	return render_template('index.html') # affichage page d'accueil
 	
 
-@app.route('/inscription/', methods=['GET', 'POST'])
-def sInscrire():
-	if request.method == 'POST':
-		pseudo = request.form["pseudo"]        # récupération du pseudo
-		if pseudo in session:                  # si le pseudo était déjà enrégistré
-			return " Le login que vous avez saisi, existe déjà. Veuillez en choisir un autre."     
-		else:
-			session[pseudo] = pseudo           # si le pseudo n'était pas encore enrégistré
-			session[mdp] = mdp           # si le pseudo n'était pas encore enrégistré			
-			newUser = users(request.form["nom"],request.form["prenom"], pseudo , request.form["pass"] , request.form["tel"], request.form["mail"] ,image = "images.png")
-			if newUser.isValid():
-				ajoutUser = mongo.db.users.insert_one(newUser.afficher())
-				return render_template('NewespacePerso.html', pseudo=session[pseudo])    # on renvoit la page perso du nouvel utilisateur avec le message bienvenu
-			else:
-				return "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur les saisies."
-	return render_template('inscription.html')
+@app.route('/conditions/', methods=['GET', 'POST'])
+def conditions():
+	return render_template('conditions.html')
+
+@app.route("/inscription/", methods=['Get','Post'])
+def inscription():
+
+        if request.method == 'POST':
+                pseudo = request.form["pseudo"]        # récupération du pseudo
+                a = []
+                a.append(mongo.db.user.find_one({'Pseudo': pseudo}))
+                if a != [None]: # vérifier si le pseudo existe dans la base
+                        return "Erreur: désolé le pseudo que vous avez choisi existe déjà dans notre base de données! veuillez choisir un autre"
+
+                email = request.form["mail"]        # récupération du mail
+                b = []
+                b.append(mongo.db.user.find_one({'email': email}))
+                if b != [None]:  # vérifier si le mail existe dans la base
+                        return "Erreur: désolé le mail que vous avez entré existe déjà dans notre base de données! veuillez choisir un autre!"
+
+                
+                newUser = users(request.form["Nom"],request.form["Pren"],pseudo,request.form["passd"],request.form["tel"],email) # création de l'objet user
+
+                if newUser.isValid(): # tester les conditions sur les données entrées par l'utilisateur
+                        ajoutUser = mongo.db.demandes.insert(newUser.format) # ajouter la demande d'inscription à la base de donées dans la collections demandes
+                        return "Votre demande d'inscription est envoyée à l'Admin du Wiki" # afficher à l'utilisateur un message que sa demande est envoyée
+                else:
+                        return "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur la saisie."
+                        
+        return render_template('inscription.html') # envoyer la page d'inscription
 
 
 @app.route('/seConnecter/', methods=['GET', 'POST'])
 def seConnecter():
 	if request.method == 'POST':
 		pseudo = request.form["pseudo"]        # récupération du pseudo
-		findUser = mongo.db.users.find_one({'pseudo': request.form["pseudo"]})
+		findUser = mongo.db.users.find_one({'pseudo': pseudo})
 		if findUser == None : 
 			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
-		elif findUser['pseudo']== request.form["pseudo"] and findUser['mdp']== request.form["pass"] : 
+		elif findUser['pseudo']== pseudo and findUser['mdp']== request.form["pass"] : 
 			return render_template('espacePerso.html', pseudo=session[pseudo])   # on renvoit la page perso de l'utilisateur
 		else: 
 			return "Erreur: Mot de passe / login incorrect. "    

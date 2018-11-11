@@ -17,7 +17,7 @@ class users:
         self.mail = mail
         self.image = image
         self.re_nom = re.compile("^[A-Za-z]+(-[A-Za-z]*)*$")   # mon: on peut mettre que des lettres
-        self.re_pren = re.compile("^[A-Z][a-z]+(-[A-Z][a-z]*)*$") # prenom : on peut mettre que des lettres
+        self.re_pren = re.compile("^[A-Za-z]+(-[A-Z][a-z]*)*$") # prenom : on peut mettre que des lettres
         self.re_tel = re.compile("^[0][1-9]([-._]?[0-9]{2}){4}$") # tel: il commence par 0, on peut séparer chque deux chiffres par -ou_ou. total = 10 chiffres
         self.re_mail = re.compile(r"^\w(.)*[a-zA-Z]+[\.a-zA-Z]*(\.fr)$") # que des mails .fr, il ne faut pas oublier le @
         self.re_image = re.compile(r"(\.png|\.jpeg|\.jpg)$") # format images accéptées: png,jpeg et jpg
@@ -36,7 +36,7 @@ class users:
         if self.re_pren.search(self.pren)is not None:
             return True
         else:
-            False
+            return False
             
     def Valid_tel(self):
         if self.re_tel.search(self.tel)is not None:
