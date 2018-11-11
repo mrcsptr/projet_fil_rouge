@@ -1,15 +1,14 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="fr">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <head>
     <title>Inscription</title>
-    <meta charset="UTF-8">
 
 
-      <style>
+           <style>
 
         form {
-        /* Centrer et définir la taille du formulaire sur la page */
+        /* Centrer et dÃ©finir la taille du formulaire sur la page */
         margin: 0 auto;
         width: 950px;
         /* Encadrer pour voir les limites du formulaire */
@@ -36,15 +35,9 @@
         margin-top: 1em
       }
 
-      label {
-        /* Fixer l'alignement et la taille des intitulés */
-        display: inline-block;
-        width: 100px;
-        text-align: right
-       }
-
+      
         textarea {
-        /* Alignement avec les champs précédents */
+        /* Alignement avec les champs prÃ©cÃ©dents */
         vertical-align: top;
         /* Fixer le nombre de ligne */
         height: 30em
@@ -109,19 +102,16 @@
     padding: 10px
 }
 
+
     </style>
 
     <div class="topnav">
 <a href="#">Accueil</a>
   <a href="#">Espace Personnel</a>
-    <a>
-        <form name="Recherche" action="page-envoi.html" method="post">
-        <input type="text" name="search" placeholder="Search ..." width="330px" required>
-        <button type="Submit">Lancer la recherche</button>
-        </form>
-</a>
+   
 </div>
 </head>
+
 <body>
 <style>
 body {
@@ -130,30 +120,38 @@ body {
    background-size:cover;
 }
 
+
+
 </style>
 
-<h1>Cr&eacute;er votre compte Wiki</h1>
+  
+
+
+<div class="content" style="text-align:center;">
+
+<h1>CrÃ©ation de votre compte Wiki</h1>
         
         <form method="post">
-            <label class="label-grand" for="Nom">Nom : </label>
-            <input type="text" name="Nom" id="Nom"><br><br>
-            <label class="label-grand" for="Prénom">Prénom: </label>
-            <input type="text" name="Pren" id="Pren"><br><br>
-            <label class="label-grand" for="pseudo">Pseudo : </label>
-            <input type="text" name="pseudo" id="pseudo"><br><br>
-            <label class="label-grand" for="Password">Password : </label>
-            <input type="password" name="passd" id="passd"><br><br>
+            <label class="label-grand" for="Nom">Nom :</label>
+	    <input type = "text" name = "Nom" id = "Nom"><br></br>
+            <label class="label-grand" for="PrÃ©nom">PrÃ©nom:</label>
+	    <input type = "text" name = "Pren" id = "Pren"><br></br>
+            <label class="label-grand" for="pseudo">Pseudo :</label>
+	    <input type = "text" name = "pseudo" id = "pseudo"><br></br>
+            <label class="label-grand" for="Password">Password :</label>
+	    <input type = "password" name = "passd" id = "passd"><br></br>
                 
-            <label class="label-grand" class="label-grand" for="numéro de téléphone">Numéro de téléphone : </label>
-            <input type="text" name="tel" id="tel"><br><br>
-            <label class="label-grand" for="Email">Email: </label>
-            <input type="email" name="mail" id="mail"><br><br>
-                
-            <input type="submit" value="Envoyer">
+            <label class="label-grand" for="numÃ©ro de tÃ©lÃ©phone">NumÃ©ro de tÃ©lÃ©phone :</label>
+	    <input type = "text" name = "tel" id = "tel"><br></br>
+            <label class="label-grand" for="Email">Email:</label>
+	    <input type = "text" name = "mail" id = "mail"><br></br>
+	    <input type = "submit" value = "Envoyer">
+
 	    <p>
-  	    	<a href="conditions.html">Lire les conditions sur les saisies </a>
+  	    	<a href="http://localhost:5000/conditions"> Lire les conditions sur la saisie </a>
 	    </p>
         </form>
 
+</div>
 </body>
 </html>
