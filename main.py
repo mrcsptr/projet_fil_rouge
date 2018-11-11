@@ -21,7 +21,10 @@ app.secret_key = 'my secret key'  # clé secrète et unique à fixer pour pouvoi
 def index():
 	if request.method == 'POST':
 		article = mongo.db.articles.find_one({'Titre': request.form['search']}) # recherche de l'article dans la base
-		return redirect(url_for('connexion_article', chaine = article['Titre'])) # redirection vers la page de l'article
+		if article is None:
+			return render_template('index.html')
+		else:
+			return redirect(url_for('connexion_article', chaine = article['Titre'])) # redirection vers la page de l'article
 	return render_template('index.html') # affichage page d'accueil
 	
 
@@ -56,7 +59,7 @@ def seConnecter():
 			return "Erreur: Mot de passe / login incorrect. "    
 	return render_template('seConnecter.html')
 	
-@app.route('/<chaine>/')
+@app.route('/<chaine>/', methods=['GET', 'POST'])
 def connexion_article(chaine):
 	article = mongo.db.articles.find_one({'Titre': chaine}) # recherche de l'article dans la base
 	return render_template('article.html', article = article) # redirection vers la page de l'article
