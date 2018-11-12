@@ -145,6 +145,21 @@ def seConnecter():
 			return render_template('basic.html', line = line)
 	return render_template('seConnecter.html')
 
+@app.route('/seConnecter/', methods=['GET', 'POST'])
+def seConnecter():
+	if request.method == 'POST':
+		pseudo = request.form["pseudo"]        # récupération du pseudo
+		findUser = mongo.db.user.find_one({'Pseudo': request.form["pseudo"]})
+		if findUser == None : 
+			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
+		elif findUser['Pseudo']== pseudo and findUser['psswd']== request.form["pass"] : 
+			if findUser['Pseudo'] == 'Admin': 
+				return render_template('espacePersoAdmin.html', pseudo=session[pseudo])
+			else:
+				return render_template('espacePerso.html', nom=findUser['Nom'], prenom=findUser['Prenom'], pseudo=session[pseudo], pwd=findUser['psswd'], tel=findUser['tel'], email=findUser['email'])   # on renvoit la page perso de l'utilisateur
+		else: 
+			return "Erreur: Mot de passe / login incorrect"
+	return render_template('seConnecter.html')	
 	
 @app.route('/<chaine>/', methods=['GET', 'POST'])
 def connexion_article(chaine):
