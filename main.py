@@ -174,7 +174,7 @@ def ajouterCommentaire(chaine):
 		newComment = commentaires(chaine, request.form["Auteur_comment"], datetime.datetime.now(),
                               request.form["contenu_comment"])   # création d'un nouvel objet commentaire avec les information saisies par l'utilisateur
 		if newComment.contenu_isValid():
-			ajoutComment = mongo.db.commentaires.insert_one(newComment.format)    # on rajoute les nouvelles informations saisies dans la base de données commentaires
+			ajoutComment = mongo.db.demandes.insert_one(newComment.format)    # on rajoute les nouvelles informations saisies dans la base de données commentaires
 			return render_template('temp_Conf_soumissionComment.html')  # on renvoit la page de confirmation de soumission du commentaire.
 		else:
 			return render_template(
