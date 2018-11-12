@@ -36,109 +36,115 @@ def conditions():
 @app.route("/inscription/", methods=['Get','Post'])
 def inscription():
 
-        if request.method == 'POST':
-                pseudo = request.form["pseudo"]        # récupération du pseudo
-                a = []
-                a.append(mongo.db.user.find_one({'Pseudo': pseudo}))
-                if a != [None]: # vérifier si le pseudo existe dans la base
-                        return "Erreur: désolé le pseudo que vous avez choisi existe déjà dans notre base de données! veuillez choisir un autre"
+	if request.method == 'POST':
+		pseudo = request.form["pseudo"]        # récupération du pseudo
+		a = []
+		a.append(mongo.db.user.find_one({'Pseudo': pseudo}))
+		if a != [None]: # vérifier si le pseudo existe dans la base
+			line = "Erreur: désolé le pseudo que vous avez choisi existe déjà dans notre base de données! veuillez choisir un autre"
+			return render_template('basic.html', line = line)
 
-                email = request.form["mail"]        # récupération du mail
-                b = []
-                b.append(mongo.db.user.find_one({'email': email}))
-                if b != [None]:  # vérifier si le mail existe dans la base
-                        return "Erreur: désolé le mail que vous avez entré existe déjà dans notre base de données! veuillez choisir un autre!"
+		email = request.form["mail"]        # récupération du mail
+		b = []
+		b.append(mongo.db.user.find_one({'email': email}))
+		if b != [None]:  # vérifier si le mail existe dans la base
+			line = "Erreur: désolé le mail que vous avez entré existe déjà dans notre base de données! Veuillez choisir un autre!"
+			return  render_template('basic.html', line = line)
+			
+		newUser = users(request.form["Nom"],request.form["Pren"],pseudo,request.form["passd"],request.form["tel"],email) # création de l'objet user
 
-                
-                newUser = users(request.form["Nom"],request.form["Pren"],pseudo,request.form["passd"],request.form["tel"],email) # création de l'objet user
-
-                if newUser.isValid(): # tester les conditions sur les données entrées par l'utilisateur
-                        ajoutUser = mongo.db.demandes.insert(newUser.format) # ajouter la demande d'inscription à la base de donées dans la collections demandes
-                        return "Votre demande d'inscription est envoyée à l'Admin du Wiki" # afficher à l'utilisateur un message que sa demande est envoyée
-                else:
-                        return "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur la saisie."
+		if newUser.isValid(): # tester les conditions sur les données entrées par l'utilisateur
+			ajoutUser = mongo.db.demandes.insert(newUser.format) # ajouter la demande d'inscription à la base de donées dans la collections demandes
+			line = "Votre demande d'inscription est envoyée à l'Admin du Wiki" # afficher à l'utilisateur un message que sa demande est envoyée
+			return render_template('basic.html', line = line)
+		else:
+			line = "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur la saisie."
+			return render_template('basic.html', line = line)
                         
-        return render_template('inscription.html') # envoyer la page d'inscription
+	return render_template('inscription.html') # envoyer la page d'inscription
 
 @app.route('/demande_inscription/')
 def demande_inscrip():
-        demande_inscr = []
-        demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
-        if demande_inscr != [None]:
-                return render_template("DemandesInscription.html",user = demande_inscr[0])
-        else:
-                return "Il n' y a pas des nouvelles demandes d'inscriptions! Merci"
+	demande_inscr = []
+	demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
+	if demande_inscr != [None]:
+		return render_template("DemandesInscription.html",user = demande_inscr[0])
+	else:
+		line = "Il n' y a pas des nouvelles demandes d'inscriptions! Merci"
+		return render_template('basic.html', line = line)
 
 
 @app.route('/valider_inscription/', methods=['GET', 'POST'])
 def valider_inscrip():
-        if request.method == 'POST':
-                demande_inscr = []
-                demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
-                newUser = users(demande_inscr[0]["Nom"],demande_inscr[0]["Prenom"],demande_inscr[0]["Pseudo"],demande_inscr[0]["psswd"],demande_inscr[0]["tel"],demande_inscr[0]["email"])
-                ajoutUser = mongo.db.user.insert(newUser.format) # ajouter un utilisateur à la base de données
-                deleteUser = mongo.db.demandes.delete_one({"tel":demande_inscr[0]["tel"]})
-                return "Félicitation! Un nouveau utilisateur est ajouter à votre base de données"
-        return render_template("valider_inscription.html")
+	if request.method == 'POST':
+		demande_inscr = []
+		demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
+		newUser = users(demande_inscr[0]["Nom"],demande_inscr[0]["Prenom"],demande_inscr[0]["Pseudo"],demande_inscr[0]["psswd"],demande_inscr[0]["tel"],demande_inscr[0]["email"])
+		ajoutUser = mongo.db.user.insert(newUser.format) # ajouter un utilisateur à la base de données
+		deleteUser = mongo.db.demandes.delete_one({"tel":demande_inscr[0]["tel"]})
+		line = "Félicitation! Un nouveau utilisateur est ajouter à votre base de données"
+		return render_template('basic.html', line = line)
+	return render_template("valider_inscription.html")
 
 @app.route('/refuser_inscription/', methods=['GET', 'POST'])
 def annuler_inscrip():
-        if request.method == 'POST':
-                demande_inscr = []
-                demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
-                for_del = demande_inscr[0]["tel"]
-                deleteUser = mongo.db.demandes.delete_one({"tel":for_del}) 
-                return "Cette demande d'inscription est vient d'être supprimer de la liste des demandes"
-        return render_template("refuser_inscription.html")
+	if request.method == 'POST':
+		demande_inscr = []
+		demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
+		for_del = demande_inscr[0]["tel"]
+		deleteUser = mongo.db.demandes.delete_one({"tel":for_del}) 
+		line = "Cette demande d'inscription est vient d'être supprimée de la liste des demandes"
+		return render_template('basic.html', line = line)
+	return render_template("refuser_inscription.html")
 
 @app.route('/demande_ajout_article/')
 def demande_ajout_art():
-        demande_art = []
-        demande_art.append(mongo.db.demandes.find_one({"Mots_cles":{'$exists': True}}))
-        if demande_art != [None]:
-                return render_template("demande_ajout_article.html",article = demande_art[0])
-        else:
-                return "Il n' y a pas des nouvelles demandes d'ajout Article! Merci"
+	demande_art = []
+	demande_art.append(mongo.db.demandes.find_one({"Mots_cles":{'$exists': True}}))
+	if demande_art != [None]:
+		return render_template("demande_ajout_article.html",article = demande_art[0])
+	else:
+		line = "Il n' y a pas des nouvelles demandes d'ajout Article! Merci"
+		return render_template('basic.html', line = line)
         
 @app.route('/valider_ajout_article/', methods=['GET', 'POST'])
 def valider_ajout_art():
-        if request.method == 'POST':
-                demande_art = []
-                demande_art.append(mongo.db.demandes.find_one({"Mots_cles":{'$exists': True}}))
-                newArt = article(demande_art[0]["Auteur"],demande_art[0]["Titre"],demande_art[0]["Mots_cles"],demande_art[0]["Contenu"],demande_art[0]["Categorie"],demande_art[0]["Date"])
-                ajoutArt = mongo.db.articles.insert(newArt.format) # ajouter un utilisateur à la base de données
-                deleteArt = mongo.db.demandes.delete_one({"Mots_cles":demande_art[0]["Mots_cles"]})
-                return "Félicitation! Un nouveau article est ajouter à votre base de données"
-        return render_template("valider_ajout_article.html")
+	if request.method == 'POST':
+		demande_art = []
+		demande_art.append(mongo.db.demandes.find_one({"Mots_cles":{'$exists': True}}))
+		newArt = article(demande_art[0]["Auteur"],demande_art[0]["Titre"],demande_art[0]["Mots_cles"],demande_art[0]["Contenu"],demande_art[0]["Categorie"],demande_art[0]["Date"])
+		ajoutArt = mongo.db.articles.insert(newArt.format) # ajouter un utilisateur à la base de données
+		deleteArt = mongo.db.demandes.delete_one({"Mots_cles":demande_art[0]["Mots_cles"]})
+		line = "Félicitation! Un nouveau article est ajouter à votre base de données"
+		return render_template('basic.html', line = line)
+	return render_template("valider_ajout_article.html")
 
 @app.route('/refuser_ajout_article/', methods=['GET', 'POST'])
 def annuler_ajout_art():
-        if request.method == 'POST':
-                demande_art = []
-                demande_art.append(mongo.db.demandes.find_one({"Mots_cles":{'$exists': True}}))
-                for_del = demande_art[0]["Mots_cles"]
-                deleteUser = mongo.db.demandes.delete_one({"tel":for_del}) 
-                return "Cette demande d'ajout article est vient d'être supprimer de la liste des demandes"
-        return render_template("refuser_ajout_article.html")
+	if request.method == 'POST':
+		demande_art = []
+		demande_art.append(mongo.db.demandes.find_one({"Mots_cles":{'$exists': True}}))
+		for_del = demande_art[0]["Mots_cles"]
+		deleteUser = mongo.db.demandes.delete_one({"tel":for_del}) 
+		line = "Cette demande d'ajout article est vient d'être supprimer de la liste des demandes"
+		return render_template('basic.html', line = line)
+	return render_template("refuser_ajout_article.html")
 
 
 @app.route('/seConnecter/', methods=['GET', 'POST'])
 def seConnecter():
 	if request.method == 'POST':
 		pseudo = request.form["pseudo"]        # récupération du pseudo
-		findUser = mongo.db.user.find_one({'Pseudo': request.form["pseudo"]})
+		findUser = mongo.db.user.find_one({'Pseudo': pseudo})
 		if findUser == None : 
 			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
 		elif findUser['Pseudo']== pseudo and findUser['psswd']== request.form["pass"] : 
-			if findUser['Pseudo'] == 'Admin': 
-				print ("OK")
-				return render_template('espacePersoAdmin.html', pseudo=session[pseudo])
-			else:
-				return render_template('espacePerso.html', nom=findUser['Nom'], prenom=findUser['Prenom'], pseudo=session[pseudo], pwd=findUser['psswd'], tel=findUser['tel'], email=findUser['email'])   # on renvoit la page perso de l'utilisateur
+			return render_template('espacePerso.html', pseudo = session[pseudo])   # on renvoit la page perso de l'utilisateur
 		else: 
-			return "Erreur: Mot de passe / login incorrect"
-	return render_template('seConnecter.html')			
-		
+			line = "Erreur: Mot de passe / login incorrect. " 
+			return render_template('basic.html', line = line)
+	return render_template('seConnecter.html')
+
 	
 @app.route('/<chaine>/', methods=['GET', 'POST'])
 def connexion_article(chaine):
@@ -176,14 +182,14 @@ def ajouterCommentaire(chaine):
 
 @app.route('/categories/')
 def liste_categories():
-	categories = mongo.db.articles.distinct('categorie_article').sort({'categorie_article':1})			# récupère et classe chaque catégorie dans la collection d'articles
+	categories = mongo.db.articles.distinct('Categorie')			# récupère et classe chaque catégorie dans la collection d'articles
 	return render_template('liste_categories.html', categories = categories) 							# page listant toutes les catégories existantes
 
 
 @app.route('/categories/<chaine>/')
 def articles_dunecategorie(chaine):
-	nbr_artcateg = mongo.db.articles.find({'categorie_article': chaine}).count()						# compte le nombre d'articles de la catégorie "chaine"
-	artcateg = mongo.db.articles.find({'categorie_article': chaine}, {'Titre':1}).sort({'Titre': 1})	# récupère les titres d'articles d'une catégorie et les classe
+	nbr_artcateg = mongo.db.articles.find({'Categorie': chaine}).count()						# compte le nombre d'articles de la catégorie "chaine"
+	artcateg = mongo.db.articles.find({'Categorie': chaine})	# récupère les titres d'articles d'une catégorie et les classe
 	return render_template('liste_artcateg.html', nbr_artcateg = nbr_artcateg, artcateg = artcateg)		# page listant tous les articles de la catégorie sélectionnée
 		
 

@@ -110,22 +110,8 @@
 
 </div>
 
-</head>
-    <head>
-        <meta charset="utf-8" />
-        <title>Liste des articles de la catégorie {{chaine}} </title>
-    </head>
+    <h5 style="text-align:center"> {{line}} </h5>
 
-    <body>
-        <h1>Il y a {{ nbr_artcateg }} articles dans cette catégorie.</h1>
-		
-		<h2>Voici les articles de la catégorie :</h2>
-
-		<ul>
-			{% for article in artcateg %}
-				<li><a href = 'http://localhost:5000/{{article["Titre"]}}'>{{article['Titre']}}
-				</a></li>
-				{% endfor %}	
-		</ul>	
-    </body>
+	<a href="http://localhost:5000/">Retour à l'accueil</a>
+	
 </html>
