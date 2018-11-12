@@ -21,7 +21,7 @@ class users:
         self.re_tel = re.compile("^[0][1-9]([-._]?[0-9]{2}){4}$") # tel: il commence par 0, on peut séparer chque deux chiffres par -ou_ou. total = 10 chiffres
         self.re_mail = re.compile(r"^\w(.)*[a-zA-Z]+[\.a-zA-Z]*(\.fr)$") # que des mails .fr, il ne faut pas oublier le @
         self.re_image = re.compile(r"(\.png|\.jpeg|\.jpg)$") # format images accéptées: png,jpeg et jpg
-
+        self.format = 	{'Nom': self.nom , 'Prenom': self.pren, 'Pseudo': self.pseudo, 'psswd':self.psw, 'tel': self.tel, 'email':self.mail}
 
     def getImage(self):
         return(Image.open("self.image"))
