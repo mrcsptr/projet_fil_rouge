@@ -23,7 +23,8 @@ def index():
 	if request.method == 'POST':
 		article = mongo.db.articles.find_one({'Titre': request.form['search']}) # recherche de l'article dans la base
 		if article is None:
-			return render_template('index.html')
+			line = "cet article n'existe pas, que diriez-vous de l'écrire ?"
+			return render_template('redirect_to_create_article.html', line = line)
 		else:
 			return redirect(url_for('connexion_article', chaine = article['Titre'])) # redirection vers la page de l'article
 	return render_template('index.html') # affichage page d'accueil
@@ -160,7 +161,7 @@ def ajouterArticle():
 		newArticle = article(request.form["titre_article"],request.form["Auteur_name"], datetime.datetime.now(), 
 			request.form["contenu_article"], request.form["categorie_article"], request.form["Mots_cles_article"])
 		if newArticle.isValid(): # vérification que l'article est valide
-			ajoutArticle = mongo.db.articles.insert_one(newArticle.format)
+			ajoutArticle = mongo.db.demandes.insert_one(newArticle.format)
 			return render_template('temp_Conf_soumissionArticle.html')
 		else:
 			return render_template('template_FormArticle.html')
@@ -174,7 +175,7 @@ def ajouterCommentaire(chaine):
 		newComment = commentaires(chaine, request.form["Auteur_comment"], datetime.datetime.now(),
                               request.form["contenu_comment"])   # création d'un nouvel objet commentaire avec les information saisies par l'utilisateur
 		if newComment.contenu_isValid():
-			ajoutComment = mongo.db.commentaires.insert_one(newComment.format)    # on rajoute les nouvelles informations saisies dans la base de données commentaires
+			ajoutComment = mongo.db.demandes.insert_one(newComment.format)    # on rajoute les nouvelles informations saisies dans la base de données commentaires
 			return render_template('temp_Conf_soumissionComment.html')  # on renvoit la page de confirmation de soumission du commentaire.
 		else:
 			return render_template(
