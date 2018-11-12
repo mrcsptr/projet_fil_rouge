@@ -177,8 +177,8 @@ def liste_categories():
 
 @app.route('/categories/<chaine>/')
 def articles_dunecategorie(chaine):
-	nbr_artcateg = mongo.db.articles.find({'categorie_article': chaine}).count()						# compte le nombre d'articles de la catégorie "chaine"
-	artcateg = mongo.db.articles.find({'categorie_article': chaine}, {'Titre':1}).sort({'Titre': 1})	# récupère les titres d'articles d'une catégorie et les classe
+	nbr_artcateg = mongo.db.articles.find({'Categorie': chaine}).count()						# compte le nombre d'articles de la catégorie "chaine"
+	artcateg = mongo.db.articles.find({'Categorie': chaine})	# récupère les titres d'articles d'une catégorie et les classe
 	return render_template('liste_artcateg.html', nbr_artcateg = nbr_artcateg, artcateg = artcateg)		# page listant tous les articles de la catégorie sélectionnée
 		
 
