@@ -139,8 +139,9 @@ def seConnecter():
 			line = "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"
 			return render_template('basic.html', line = line)
 		elif findUser['Pseudo']== pseudo and findUser['psswd']== request.form["pass"] : 
+			session[pseudo] = pseudo
 			if findUser['Pseudo'] == 'Admin': 
-				return render_template('espacePersoAdmin.html', pseudo=session[pseudo])
+				return render_template('espacePersoAdmin.html', pseudo = pseudo)
 			else:
 				return render_template('espacePerso.html', nom=findUser['Nom'], prenom=findUser['Prenom'], pseudo=session[pseudo], pwd=findUser['psswd'], tel=findUser['tel'], email=findUser['email'])   # on renvoit la page perso de l'utilisateur
 		else: 
