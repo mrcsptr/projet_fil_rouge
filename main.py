@@ -140,7 +140,7 @@ def ajouterCommentaire(chaine):
 
 @app.route('/categories/')
 def liste_categories():
-	categories = mongo.db.articles.distinct('categorie_article').sort({'categorie_article':1})			# récupère et classe chaque catégorie dans la collection d'articles
+	categories = mongo.db.articles.distinct('Categorie')			# récupère et classe chaque catégorie dans la collection d'articles
 	return render_template('liste_categories.html', categories = categories) 							# page listant toutes les catégories existantes
 
 
