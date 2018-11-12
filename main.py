@@ -138,6 +138,18 @@ def ajouterCommentaire(chaine):
 	comment = mongo.db.commentaires.find({'Article': chaine})   # on récupère la liste de tous les commentaires de l'article.
 	return render_template('template_FormCommentaires.html', comment = comment)  # page à consulter pour récupérer les informations nécessaires
 
+@app.route('/categories/')
+def liste_categories():
+	categories = mongo.db.articles.distinct('categorie_article').sort({'categorie_article':1})			# récupère et classe chaque catégorie dans la collection d'articles
+	return render_template('liste_categories.html', categories = categories) 							# page listant toutes les catégories existantes
+
+
+@app.route('/categories/<chaine>/')
+def articles_dunecategorie(chaine):
+	nbr_artcateg = mongo.db.articles.find({'categorie_article': chaine}).count()						# compte le nombre d'articles de la catégorie "chaine"
+	artcateg = mongo.db.articles.find({'categorie_article': chaine}, {'Titre':1}).sort({'Titre': 1})	# récupère les titres d'articles d'une catégorie et les classe
+	return render_template('liste_artcateg.html', nbr_artcateg = nbr_artcateg, artcateg = artcateg)		# page listant tous les articles de la catégorie sélectionnée
+		
 
 if __name__ == '__main__':
 	app.run(debug=True)
