@@ -3,12 +3,11 @@
 # coding: utf-8
 
 from flask import *
-from flask_pymongo import *
+from flask_pymongo import PyMongo
 from article import *
 from users import *
 import datetime
 from commentaire import *
-from users import *
 import re
 
 app = Flask(__name__)
@@ -30,7 +29,6 @@ def index():
 	return render_template('index.html') # affichage page d'accueil
 	
 
-<<<<<<< HEAD
 @app.route('/conditions/', methods=['GET', 'POST'])
 def conditions():
 	return render_template('conditions.html')
@@ -61,41 +59,46 @@ def inscription():
                         return "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur la saisie."
                         
         return render_template('inscription.html') # envoyer la page d'inscription
-=======
-@app.route('/inscription/', methods=['GET', 'POST'])
-def sInscrire():
-	if request.method == 'POST':
-		pseudo = request.form["pseudo"]        # récupération du pseudo
-		if pseudo in session:                  # si le pseudo était déjà enrégistré
-			return " Le login que vous avez saisi, existe déjà. Veuillez en choisir un autre."     
-		else:
-			session[pseudo] = pseudo			# si le pseudo n'était pas encore enregistré
-			session[mdp] = mdp           		# si le pseudo n'était pas encore enregistré			
-			newUser = users(request.form["nom"],request.form["prenom"], pseudo , request.form["pass"] , request.form["tel"], request.form["mail"] ,image = "images.png")
-			if newUser.isValid():
-				ajoutUser = mongo.db.users.insert_one(newUser.afficher())
-				return render_template('NewespacePerso.html', pseudo=session[pseudo])    # on renvoit la page perso du nouvel utilisateur avec le message bienvenue
-			else:
-				return "Erreur: Veuillez remplir correctement le formulaire d'inscription. Lire les conditions sur les saisies."
-	return render_template('inscription.html')
->>>>>>> upstream/master
+
+@app.route('/demande_inscription/')
+def demande_inscrip():
+        demande_inscr = []
+        demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
+        if demande_inscr != [None]:
+                return render_template("DemandesInscription.html",user = demande_inscr[0])
+        else:
+                return "Il n' y a pas des nouvelles demandes d'inscriptions! Merci"
+
+
+@app.route('/valider_inscription/', methods=['GET', 'POST'])
+def valider_inscrip():
+        if request.method == 'POST':
+                demande_inscr = []
+                demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
+                newUser = users(demande_inscr[0]["Nom"],demande_inscr[0]["Prenom"],demande_inscr[0]["Pseudo"],demande_inscr[0]["psswd"],demande_inscr[0]["tel"],demande_inscr[0]["email"])
+                ajoutUser = mongo.db.user.insert(newUser.format) # ajouter un utilisateur à la base de données
+                return "Félicitation! Un nouveau utilisateur est ajouter à votre base de données"
+        return render_template("valider_inscription.html")
+
+@app.route('/refuser_inscription/', methods=['GET', 'POST'])
+def annuler_inscrip():
+        if request.method == 'POST':
+                demande_inscr = []
+                demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
+                for_del = demande_inscr[0]["tel"]
+                deleteUser = mongo.db.demandes.delete_one({"tel":for_del}) 
+                return "Cette demande d'inscription est vient d'être supprimer de la liste des demandes"
+        return render_template("refuser_inscription.html")
 
 
 @app.route('/seConnecter/', methods=['GET', 'POST'])
 def seConnecter():
 	if request.method == 'POST':
 		pseudo = request.form["pseudo"]        # récupération du pseudo
-<<<<<<< HEAD
 		findUser = mongo.db.users.find_one({'pseudo': pseudo})
 		if findUser == None : 
 			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
 		elif findUser['pseudo']== pseudo and findUser['mdp']== request.form["pass"] : 
-=======
-		findUser = mongo.db.users.find_one({'Pseudo': request.form["pseudo"]})
-		if findUser == None : 
-			return "Erreur: Aucun compte ne correspond à ce login/mdp. Veuillez créer un compte"     
-		elif findUser['Pseudo']== request.form["pseudo"] and findUser['psswd']== request.form["pass"] :
->>>>>>> upstream/master
 			return render_template('espacePerso.html', pseudo=session[pseudo])   # on renvoit la page perso de l'utilisateur
 		else: 
 			return "Erreur: Mot de passe / login incorrect. "    
@@ -136,19 +139,5 @@ def ajouterCommentaire(chaine):
 	return render_template('template_FormCommentaires.html', comment = comment)  # page à consulter pour récupérer les informations nécessaires
 
 
-@app.route('/categories/')
-def liste_categories():
-	categories = mongo.db.articles.find().distinct('Categorie')		# récupère et classe chaque catégorie dans la collection d'articles
-	return render_template('liste_categories.html', categories = categories) 							# page listant toutes les catégories existantes
-
-	
-@app.route('/categories/<chaine>/')
-def articles_dunecategorie(chaine):
-	print(chaine)
-	nbr_artcateg = mongo.db.articles.find({'Categorie': chaine}).count()						# compte le nombre d'articles de la catégorie "chaine"
-	artcateg = mongo.db.articles.find({'Categorie': chaine}) 	# récupère les titres d'articles d'une catégorie et les classe
-	return render_template('liste_artcateg.html', nbr_artcateg = nbr_artcateg, artcateg = artcateg, chaine = chaine)		# page listant tous les articles de la catégorie sélectionnée
-	
-	
 if __name__ == '__main__':
 	app.run(debug=True)
