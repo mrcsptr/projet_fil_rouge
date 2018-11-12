@@ -77,6 +77,7 @@ def valider_inscrip():
                 demande_inscr.append(mongo.db.demandes.find_one({"tel":{'$exists': True}}))
                 newUser = users(demande_inscr[0]["Nom"],demande_inscr[0]["Prenom"],demande_inscr[0]["Pseudo"],demande_inscr[0]["psswd"],demande_inscr[0]["tel"],demande_inscr[0]["email"])
                 ajoutUser = mongo.db.user.insert(newUser.format) # ajouter un utilisateur à la base de données
+                deleteUser = mongo.db.demandes.delete_one({"tel":demande_inscr[0]["tel"]})
                 return "Félicitation! Un nouveau utilisateur est ajouter à votre base de données"
         return render_template("valider_inscription.html")
 
@@ -89,6 +90,36 @@ def annuler_inscrip():
                 deleteUser = mongo.db.demandes.delete_one({"tel":for_del}) 
                 return "Cette demande d'inscription est vient d'être supprimer de la liste des demandes"
         return render_template("refuser_inscription.html")
+
+@app.route('/demande_ajout_article/')
+def demande_ajout_art():
+        demande_art = []
+        demande_art.append(mongo.db.demandes.find_one({"Mots_cles":{'$exists': True}}))
+        if demande_art != [None]:
+                return render_template("demande_ajout_article.html",article = demande_art[0])
+        else:
+                return "Il n' y a pas des nouvelles demandes d'ajout Article! Merci"
+        
+@app.route('/valider_ajout_article/', methods=['GET', 'POST'])
+def valider_ajout_art():
+        if request.method == 'POST':
+                demande_art = []
+                demande_art.append(mongo.db.demandes.find_one({"Mots_cles":{'$exists': True}}))
+                newArt = article(demande_art[0]["Auteur"],demande_art[0]["Titre"],demande_art[0]["Mots_cles"],demande_art[0]["Contenu"],demande_art[0]["Categorie"],demande_art[0]["Date"])
+                ajoutArt = mongo.db.articles.insert(newArt.format) # ajouter un utilisateur à la base de données
+                deleteArt = mongo.db.demandes.delete_one({"Mots_cles":demande_art[0]["Mots_cles"]})
+                return "Félicitation! Un nouveau article est ajouter à votre base de données"
+        return render_template("valider_ajout_article.html")
+
+@app.route('/refuser_ajout_article/', methods=['GET', 'POST'])
+def annuler_ajout_art():
+        if request.method == 'POST':
+                demande_art = []
+                demande_art.append(mongo.db.demandes.find_one({"Mots_cles":{'$exists': True}}))
+                for_del = demande_art[0]["Mots_cles"]
+                deleteUser = mongo.db.demandes.delete_one({"tel":for_del}) 
+                return "Cette demande d'ajout article est vient d'être supprimer de la liste des demandes"
+        return render_template("refuser_ajout_article.html")
 
 
 @app.route('/seConnecter/', methods=['GET', 'POST'])
