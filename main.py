@@ -115,7 +115,7 @@ def valider_ajout_art():
 		newArt = article(demande_art[0]["Auteur"],demande_art[0]["Titre"],demande_art[0]["Mots_cles"],demande_art[0]["Contenu"],demande_art[0]["Categorie"],demande_art[0]["Date"])
 		ajoutArt = mongo.db.articles.insert(newArt.format) # ajouter un utilisateur à la base de données
 		deleteArt = mongo.db.demandes.delete_one({"Mots_cles":demande_art[0]["Mots_cles"]})
-		line = "Félicitation! Un nouveau article est ajouter à votre base de données"
+		line = "Félicitations! Un nouveau article est ajouté à votre base de données"
 		return render_template('basic.html', line = line)
 	return render_template("valider_ajout_article.html")
 
@@ -182,6 +182,43 @@ def ajouterCommentaire(chaine):
 	comment = mongo.db.commentaires.find({'Article': chaine})   # on récupère la liste de tous les commentaires de l'article.
 	return render_template('template_FormCommentaires.html', comment = comment)  # page à consulter pour récupérer les informations nécessaires
 
+
+@app.route('/demande_ajout_commentaire/')
+def demande_ajout_comt():
+    demande_comt = []
+    demande_comt.append(mongo.db.demandes.find_one({"Article":{'$exists': True}}))
+    if demande_comt != [None]:
+        return render_template("demande_ajout_commentaire.html",commentaire = demande_comt[0])
+    else:
+        line = "Il n' y a pas des nouvelles demandes d'ajout commentaire! Merci"
+        return render_template('basic.html', line = line)
+
+		
+@app.route('/valider_ajout_commentaire/', methods=['GET', 'POST'])
+def valider_ajout_comt():
+    if request.method == 'POST':
+        demande_comt = []
+        demande_comt.append(mongo.db.demandes.find_one({"Article":{'$exists': True}}))
+        newComt = commentaires(demande_comt[0]["Auteur"],demande_comt[0]["Contenu"],demande_comt[0]["Date"],demande_comt[0]["Article"])
+        ajoutComt = mongo.db.commentaires.insert(newComt.format) # ajouter un utilisateur à la base de données
+        deleteComt = mongo.db.demandes.delete_one({"Article":demande_comt[0]["Article"]})
+        line = "Félicitation! Un nouveau commentaire est ajouté à votre base de données"
+        return render_template('basic.html', line = line)
+    return render_template("valider_ajout_commentaire.html")
+
+	
+@app.route('/refuser_ajout_commentaire/', methods=['GET', 'POST'])
+def annuler_ajout_comt():
+    if request.method == 'POST':
+        demande_comt = []
+        demande_comt.append(mongo.db.demandes.find_one({"Article":{'$exists': True}}))
+        for_del = demande_comt[0]["Article"]
+        deleteComt = mongo.db.demandes.delete_one({"Article":for_del})
+        line = "Cette demande d'ajout commentaire est vient d'être supprimée de la liste des demandes"
+        return render_template('basic.html', line = line)
+    return render_template("refuser_ajout_commentaire.html")
+	
+	
 @app.route('/categories/')
 def liste_categories():
 	categories = mongo.db.articles.distinct('Categorie')			# récupère et classe chaque catégorie dans la collection d'articles
